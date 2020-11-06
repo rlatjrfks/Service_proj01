@@ -1,5 +1,4 @@
 from flask import Flask, render_template
-#유승호 수정
 app = Flask(__name__)
 
 @app.route("/")
