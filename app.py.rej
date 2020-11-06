@@ -1,0 +1,8 @@
+diff a/app.py b/app.py	(rejected hunks)
+@@ -1,5 +1,5 @@
+ from flask import Flask, render_template
+-
++#유승호 수정
+ app = Flask(__name__)
+ 
+ @app.route("/")
