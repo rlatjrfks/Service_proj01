@@ -1,58 +1,56 @@
 from flask import Flask
+from flask import render_template
+import pymysql
 
 app = Flask(__name__)
+#
+# @app.route("/")
+# def hello():
+#     db = pymysql.connect(host='127.0.0.1',
+#                          port=3306, user='root', passwd='@science9110',
+#                          db='test', charset='utf8')
+#     cursor = db.cursor()
+#     sql = 'select * from test.table1'
+#     cursor.execute(sql)
+#     result = cursor.fetchall()
+#     print(result[0][0])
+#     data = result[0]
+#     print(type(data))
+#     db.close()
+#
+#     return str(data)
+
+    # return "<h1>hellowolrd!</h1>"
+
 @app.route("/")
-def hello():
-    return "<h1>Hello Service World!</h1>"
-
-@app.route("/hello")
-def hello_flask():
-    return "<h1>Hello Flask!</h1>"
-
-@app.route("/first")
-def hello_first():
-    return "<h3>Hello First</h3>"
+def homepage():
+    return render_template("index.html")
+# @app.route("/")
+# def hello():
+#     return "<h1>Hello World!</h1>"
+#
+# @app.route("/abc")
+# def hello2():
+#     a ="{1:aa, 2:bb}"
+#     return a
+#
+# @app.route("/message/<string:message_id>")
+# def get_message(message_id):
+#     print(type(message_id))
+#     return"message id :%s" %message_id
+#
+# @app.route("/first/<int:messageid>")
+# def get_first(messageid):
+#     print(type(messageid))
+#     return "<h1>%d</h1>" % (messageid+5)
+#
+# @app.route("/<user>")
+# def test(user):
+#     return user
+#
+# @app.route("/hello/<users>")
+# def hello_name(user):
+#     return render_template("index_test.html", data=user)
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port="8080")
-
-@app.route("/univ/<aaa>")
-def hello3(aaa):
-    a = aaa
-    return a
-
-@app.route("/message/<string:message_id>")
-def get_message(message_id):
-    print(type(message_id))
-    return "message id: %s" % (message_id)
-
-@app.route("/first/<int:messageid>")
-def get_first(messageid):
-    print(type(messageid))
-    return "<h1>%d</h1>" % (messageid + 5)
-
-@app.route("/<user>")
-def test(user):
-    return user
-
-@app.route("/test")
-def get_html():
-    return render_template("view.html", data="전달메시지")
-
-@app.route("/test1")
-def get_html1():
-    return render_template("view.html", aa="전달메시지", bb="1234", cc=[1, 2, 3])
-
-@app.route("/hello")
-def hello_flask():
-    return "<h1>Hello Flask!</h1>"
-
-@app.route("/first")
-def hello_first():
-    return "<h3>Hello First!<h3>"
-
-@app.route("/index")
-def index():
-    result = db.select_all()
-    return render_template("index.html", aaa=str(result))
-
+    app.run()
