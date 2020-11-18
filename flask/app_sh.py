@@ -22,40 +22,50 @@ app = Flask(__name__)
 
     # return "<h1>hellowolrd!</h1>"
 
+#기능
 @app.route("/")
 def homepage():
     return render_template("index.html")
 
+@app.route("/static_sidenavigation")
+def static_sidenavigation():
+    return render_template("layout-sidenav-light.html")
 
+
+@app.route("/static_navigaton")
+def static_navigation():
+    return render_template("layout-static.html")
+
+@app.route("/tables")
+def tables():
+    return render_template("tables.html")
+
+#회원가입, 로그인
 @app.route("/login")
 def login():
     return render_template("login.html")
-# @app.route("/")
-# def hello():
-#     return "<h1>Hello World!</h1>"
-#
-# @app.route("/abc")
-# def hello2():
-#     a ="{1:aa, 2:bb}"
-#     return a
-#
-# @app.route("/message/<string:message_id>")
-# def get_message(message_id):
-#     print(type(message_id))
-#     return"message id :%s" %message_id
-#
-# @app.route("/first/<int:messageid>")
-# def get_first(messageid):
-#     print(type(messageid))
-#     return "<h1>%d</h1>" % (messageid+5)
-#
-# @app.route("/<user>")
-# def test(user):
-#     return user
-#
-# @app.route("/hello/<users>")
-# def hello_name(user):
-#     return render_template("index_test.html", data=user)
+
+@app.route("/password")
+def password():
+    return render_template("password.html")
+
+@app.route("/register")
+def register():
+    return render_template("register.html")
+
+#에러 페이지
+@app.errorhandler(404)
+def page_not_found(error):
+    return render_template("500.html")
+
+@app.errorhandler(401)
+def permission_error(error):
+    return render_template("401.html")
+
+@app.errorhandler(500)
+def connetion_error(error):
+    return render_template("500.html")
+
 
 if __name__ == "__main__":
     app.run()
