@@ -32,13 +32,17 @@ def static_sidenavigation():
     return render_template("layout-sidenav-light.html")
 
 
-@app.route("/static_navigaton")
+@app.route("/static_navigation")
 def static_navigation():
     return render_template("layout-static.html")
 
 @app.route("/tables")
 def tables():
     return render_template("tables.html")
+
+@app.route("/charts")
+def charts():
+    return render_template("charts.html")
 
 #회원가입, 로그인
 @app.route("/login")
