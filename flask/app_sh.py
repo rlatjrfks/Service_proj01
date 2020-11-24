@@ -3,7 +3,7 @@ from flask import render_template
 import pymysql
 
 app = Flask(__name__)
-#
+
 # @app.route("/")
 # def hello():
 #     db = pymysql.connect(host='127.0.0.1',
@@ -20,7 +20,7 @@ app = Flask(__name__)
 #
 #     return str(data)
 
-    # return "<h1>hellowolrd!</h1>"
+# return "<h1>hellowolrd!</h1>"
 
 #기능
 @app.route("/")
