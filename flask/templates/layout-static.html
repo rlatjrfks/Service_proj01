@@ -6,13 +6,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Static Navigation - SB Admin</title>
+        <title>나만의 주식 포트폴리오 : 사용가이드</title>
         <link href="/static/css/styles.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
     </head>
     <body>
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <a class="navbar-brand" href="/">My Stock</a>
+            <a class="navbar-brand" href="portfolio">My Stock</a>
             <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
             <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
@@ -41,63 +41,14 @@
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
                         <div class="nav">
-                            <div class="sb-sidenav-menu-heading">Core</div>
-                            <a class="nav-link" href="/">
+                            <div class="sb-sidenav-menu-heading">Home</div>
+                            <a class="nav-link" href="portfolio">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                Dashboard
+                                My Portfolio
                             </a>
-                            <div class="sb-sidenav-menu-heading">Interface</div>
-                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                                Layouts
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="static_navigation">Static Navigation</a>
-                                    <a class="nav-link" href="static_sidenavigation">Light Sidenav</a>
-                                </nav>
-                            </div>
-                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
-                                <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                                Pages
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
-                                        Authentication
-                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                                    </a>
-                                    <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
-                                        <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link" href="login">Login</a>
-                                            <a class="nav-link" href="register">Register</a>
-                                            <a class="nav-link" href="password">Forgot Password</a>
-                                        </nav>
-                                    </div>
-                                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
-                                        Error
-                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                                    </a>
-                                    <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
-                                        <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link" href="401.html">401 Page</a>
-                                            <a class="nav-link" href="404.html">404 Page</a>
-                                            <a class="nav-link" href="500.html">500 Page</a>
-                                        </nav>
-                                    </div>
-                                </nav>
-                            </div>
-                            <div class="sb-sidenav-menu-heading">Addons</div>
-                            <a class="nav-link" href="charts">
-                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                                Charts
-                            </a>
-                            <a class="nav-link" href="tables">
-                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                Tables
-                            </a>
+                            <div class="sb-sidenav-menu-heading">etc</div>
+
+                                    <a class="nav-link" href="static_navigation">이용가이드</a>
                         </div>
                     </div>
                     <div class="sb-sidenav-footer">
@@ -109,19 +60,30 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid">
-                        <h1 class="mt-4">Static Navigation</h1>
+                        <h1 class="mt-4">이용가이드</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Static Navigation</li>
+                            <li class="breadcrumb-item"><a href="/portfolio">My Portfolio</a></li>
+                            <li class="breadcrumb-item active">이용가이드</li>
                         </ol>
                         <div class="card mb-4">
                             <div class="card-body">
-                                <p class="mb-0">
-                                    This page is an example of using static navigation. By removing the
-                                    <code>.sb-nav-fixed</code>
-                                    class from the
-                                    <code>body</code>
-                                    , the top navigation and side navigation will become static on scroll. Scroll down this page to see an example.
+                                <p class="mb-0" style="font-size:30pt;">
+                                    1. 주요 기능 및 참고 사항
+                                </p>
+                                <p class="mb-0" style="font-size:15pt;">
+                                    * 현재 사이트는 카카오톡 로그인으로만 로그인이 가능합니다.
+                                </p>
+                                <p class="mb-0" style="font-size:15pt;">
+                                    * 이 사이트는 PC버전만 지원합니다.
+                                </p>
+                                <p class="mb-0" style="font-size:15pt;">
+                                    * 로그인을 하면 사용자 자신의 주식 포트폴리오 내역을 전체적으로 알 수 있습니다.
+                                </p>
+                                <p class="mb-0" style="font-size:15pt;">
+                                    * 배당금내역, 실현손익내역, 포트폴리오 내역을 입력할 수 있습니다.
+                                </p>
+                                <p class="mb-0" style="font-size:15pt;">
+                                    * 각각의 내역을 등록, 수정, 삭제 시 실시간으로 통계 데이터에 적용 됩니다.
                                 </p>
                             </div>
                         </div>

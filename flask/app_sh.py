@@ -23,7 +23,7 @@ app = Flask(__name__)
 # return "<h1>hellowolrd!</h1>"
 
 #기능
-@app.route("/")
+@app.route("/portfolio")
 def homepage():
     return render_template("index.html")
 
