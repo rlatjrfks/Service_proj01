@@ -23,26 +23,35 @@ app = Flask(__name__)
 # return "<h1>hellowolrd!</h1>"
 
 #기능
+# 포트폴리오 첫 페이지
 @app.route("/portfolio")
 def homepage():
     return render_template("index.html")
 
-@app.route("/static_sidenavigation")
-def static_sidenavigation():
-    return render_template("layout-sidenav-light.html")
+# 배당금 내역
+@app.route("/dividend")
+def dividend():
+    return render_template("dividend.html")
 
+# 투자 현황
+@app.route("/invest")
+def invest():
+    return render_template("invest.html")
 
-@app.route("/static_navigation")
-def static_navigation():
-    return render_template("layout-static.html")
+# 월간 이력
+@app.route("/monthly")
+def monthly():
+    return render_template("monthly.html")
 
-@app.route("/tables")
-def tables():
-    return render_template("tables.html")
+# 이용 가이드
+@app.route("/guide")
+def guide():
+    return render_template("guide.html")
 
-@app.route("/charts")
-def charts():
-    return render_template("charts.html")
+# Q & A
+@app.route("/qna")
+def qna():
+    return render_template("qna.html")
 
 #회원가입, 로그인
 @app.route("/login")
