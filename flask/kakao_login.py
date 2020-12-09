@@ -10,7 +10,7 @@ url = "https://kauth.kakao.com/oauth/token"
 data = {
     "grant_type": "authorization_code",
     "client_id": app_key,
-    "redirect_uri": "http://127.0.0.1:5000/",
+    "redirect_uri": "http://127.0.0.1:5000/portfolio",
     "code": code
 
 }
