@@ -22,7 +22,13 @@ app = Flask(__name__)
 
 # return "<h1>hellowolrd!</h1>"
 
-#기능
+# #기능
+# 기본 페이지 실습중
+# @app.route("/")
+# def crawling():
+#     return render_template("index2.html")
+
+
 # 포트폴리오 첫 페이지
 @app.route("/portfolio")
 def homepage():
@@ -69,7 +75,7 @@ def register():
 #에러 페이지
 @app.errorhandler(404)
 def page_not_found(error):
-    return render_template("500.html")
+    return render_template("404.html")
 
 @app.errorhandler(401)
 def permission_error(error):
