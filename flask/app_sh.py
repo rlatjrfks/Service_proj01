@@ -30,6 +30,10 @@ app = Flask(__name__)
 # def crawling():
 #     return render_template("index2.html")
 
+# 홈
+@app.route("/")
+def first():
+    return render_template("home.html")
 
 # 포트폴리오 첫 페이지
 @app.route("/portfolio")
