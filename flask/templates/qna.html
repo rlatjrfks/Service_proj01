@@ -86,9 +86,28 @@
                         </ol>
                         <div class="card mb-4">
                             <div class="card-body">
-                                <p class="mb-0" style="font-size:30pt;">
-                                    공지사항
-                                </p>
+                                <table class="table table-hover table-striped text-center" style="border: 1px solid;">
+                                    <thead>
+                                    <tr>
+                                        <th>번호</th>
+                                        <th>제목</th>
+                                        <th>글쓴이</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for i in data_list %}
+                                        <tr>
+                                            <td>{{ i[0] }}</td>
+                                            <td>{{ i[1] }}</td>
+                                            <td>{{ i[2] }}</td>
+                                        </tr>
+                                        {% endfor %}
+
+                                    </tbody>
+                                </table>
+
+                                <hr>
+                                <a class="btn btn-outline-info float-right">글쓰기</a>
                             </div>
                         </div>
                         <div style="height: 100vh"></div>

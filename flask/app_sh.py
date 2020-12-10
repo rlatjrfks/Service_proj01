@@ -1,4 +1,6 @@
-from flask import Flask
+import math
+
+from flask import Flask, request
 from flask import render_template
 import pymysql
 
@@ -57,9 +59,17 @@ def guide():
 # Q & A
 @app.route("/qna")
 def qna():
-    return render_template("qna.html")
+    db = pymysql.connect(host='127.0.0.1', port=3306, user='root', passwd='@science9110', db='test', charset='utf8')
+    cur = db.cursor()
 
-#회원가입, 로그인
+    sql = "SELECT * from board"
+    cur.execute(sql)
+
+    data_list = cur.fetchall()
+
+    return render_template("qna.html", data_list=data_list)
+
+# 회원가입, 로그인
 @app.route("/login")
 def login():
     return render_template("login.html")
@@ -72,7 +82,7 @@ def password():
 def register():
     return render_template("register.html")
 
-#에러 페이지
+# 에러 페이지
 @app.errorhandler(404)
 def page_not_found(error):
     return render_template("404.html")
