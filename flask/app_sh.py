@@ -9,7 +9,7 @@ from bs4 import BeautifulSoup
 import openpyxl
 
 app = Flask(__name__)
-db_root = pymysql.connect(host='127.0.0.1', port=3306, user='root', passwd='@science9110', db='test', charset='utf8')
+db_root = pymysql.connect(host='ls-360d5e5827a35e0a46fa340307d68f5a00a3b151.cvbhe0hq8rxv.ap-northeast-2.rds.amazonaws.com', port=3306, user='dbmasteruser', passwd='Qa]HHh]dc1NsX>VLfo<=JA^1GcEWOCY$', db='dbmaster', charset='utf8')
 
 # 홈
 @app.route("/")
