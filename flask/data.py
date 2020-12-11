@@ -28,5 +28,5 @@ for i in range(1, 40):
             sheet.append([name.text, money.text])
 
 # 작업 마친 후 파일 저장
-wb.save("주식데이터.xlsx")
+wb.save("templates/주식데이터.xlsx")
 

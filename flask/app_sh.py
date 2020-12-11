@@ -8,6 +8,9 @@ import pandas as pd
 # 필요한 모듈 import 하기
 import plotly.express as px
 import plotly.io as po
+import requests
+from bs4 import BeautifulSoup
+import openpyxl
 
 app = Flask(__name__)
 
@@ -79,7 +82,7 @@ def first():
         url1 = 'https://finance.naver.com/sise/sise_index_day.nhn?code=KOSDAQ'
         url1 = '{url}&page={page}'.format(url=url1, page=page)
         # print(url)
-        df1 = df.append(pd.read_html(url, header=0)[0], ignore_index=True)
+        df1 = df1.append(pd.read_html(url1, header=0)[0], ignore_index=True)
 
     # df.dropna()를 이용해 결측값 있는 행 제거
     df1 = df1.dropna()
@@ -92,7 +95,7 @@ def first():
     df1['date'] = pd.to_datetime(df1['date'])
 
     # 반응형 그래프 그리기
-    fig1 = px.line(df, x='date', y='close', title='코스닥 지수')
+    fig1 = px.line(df1, x='date', y='close', title='코스닥 지수')
 
     fig1.update_xaxes(
         rangeslider_visible=True,
@@ -106,6 +109,36 @@ def first():
         )
     )
     fig1.write_html("templates/kosdaq_g.html")
+
+
+    # 주식 데이터 크롤링
+    # 내가 작업할 Workbook 생성하기
+    wb = openpyxl.Workbook()
+
+    # 작업할 Workbook 내 Sheet 활성화
+    sheet = wb.active
+
+    # 데이터 프레임 생성
+    sheet.append(["종목명", "현재가"])
+
+    # 데이터 크롤링
+    for i in range(1, 40):
+        raw = requests.get("https://finance.naver.com/sise/sise_market_sum.nhn?&page=" + str(i))
+        html = BeautifulSoup(raw.text, 'html.parser')
+
+        container = html.select("table.type_2 > tbody")
+
+        for con in container:
+            table = con.select("tr")
+            for ta in table:
+                name = ta.select_one("td > a")
+                money = ta.select_one("td.number")
+                if name == None:
+                    continue
+                sheet.append([name.text, money.text])
+
+    # 작업 마친 후 파일 저장
+    wb.save("templates/주식데이터.xlsx")
 
     return render_template("home.html")
 
