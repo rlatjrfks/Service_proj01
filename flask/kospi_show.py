@@ -1,6 +1,7 @@
 import pandas as pd
 # 필요한 모듈 import 하기
 import plotly.express as px
+import plotly.io as po
 
 df = pd.DataFrame()
 for page in range(1,21):
@@ -35,4 +36,5 @@ fig.update_xaxes(
 )
 fig.show()
 
+fig.write_html("kospi_g.html")
 # fig.write_html("file.html")
