@@ -44,7 +44,15 @@ def homepage():
 # 배당금 내역
 @app.route("/dividend")
 def dividend():
-    return render_template("dividend.html")
+    db = pymysql.connect(host='127.0.0.1', port=3306, user='root', passwd='1234', db='service', charset='utf8')
+    cur = db.cursor()
+
+    sql = "SELECT * from board"
+    cur.execute(sql)
+
+    data_list = cur.fetchall()
+
+    return render_template("qna.html", data_list=data_list)
 
 # 투자 현황
 @app.route("/invest")
