@@ -3,6 +3,7 @@ import math
 from flask import Flask, request
 from flask import render_template
 import pymysql
+import urllib.request
 
 app = Flask(__name__)
 
