@@ -79,7 +79,7 @@ def first():
         url1 = 'https://finance.naver.com/sise/sise_index_day.nhn?code=KOSDAQ'
         url1 = '{url}&page={page}'.format(url=url1, page=page)
         # print(url)
-        df1 = df.append(pd.read_html(url, header=0)[0], ignore_index=True)
+        df1 = df1.append(pd.read_html(url1, header=0)[0], ignore_index=True)
 
     # df.dropna()를 이용해 결측값 있는 행 제거
     df1 = df1.dropna()
@@ -92,7 +92,7 @@ def first():
     df1['date'] = pd.to_datetime(df1['date'])
 
     # 반응형 그래프 그리기
-    fig1 = px.line(df, x='date', y='close', title='코스닥 지수')
+    fig1 = px.line(df1, x='date', y='close', title='코스닥 지수')
 
     fig1.update_xaxes(
         rangeslider_visible=True,
@@ -147,7 +147,7 @@ def guide():
 # Q & A
 @app.route("/qna")
 def qna():
-    db = pymysql.connect(host='127.0.0.1', port=3306, user='root', passwd='@science9110', db='test', charset='utf8')
+    db = pymysql.connect(host='127.0.0.1', port=3306, user='root', passwd='1234', db='service', charset='utf8')
     cur = db.cursor()
 
     sql = "SELECT * from board"
