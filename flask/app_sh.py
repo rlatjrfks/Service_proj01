@@ -154,7 +154,6 @@ def guide():
 # Q & A
 @app.route("/qna", methods=["GET", "POST"])
 def qna():
-<<<<<<< HEAD
     if request.method == "POST":
         title = request.form.get("title")
         writer = request.form.get("writer")
@@ -170,9 +169,6 @@ def qna():
         db.commit()
 
     db = db_root
-=======
-    db = pymysql.connect(host='127.0.0.1', port=3306, user='root', passwd='1234', db='service', charset='utf8')
->>>>>>> 9fc49b8858927c42b8eaf8ba787966a7181167c0
     cur = db.cursor()
 
     sql = "SELECT * from board"
