@@ -66,11 +66,11 @@
       <recent name="C:\Users\Yjieun\PycharmProjects\flask\static\img" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Yjieun\Desktop\soc\flask" />
       <recent name="C:\Users\yush2\Documents\Service_proj01\flask\static" />
       <recent name="C:\Users\yush2\Documents\Service_proj01\flask\static\js" />
       <recent name="C:\Users\yush2\Documents\Service_proj01\flask\templates" />
       <recent name="C:\Users\yush2\Documents\Service_proj01\flask\test_example" />
-      <recent name="C:\Users\yush2\Documents\Service_proj01\flask\static\css" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -85,8 +85,11 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.kosdaq_show">
-    <configuration name="kospi_g.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/app_sh.py/templates/kospi_g.html" useBuiltInWebServerPort="true">
+  <component name="RunManager" selected="Python.app_sh">
+    <configuration name="password.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/app_sh.py/templates/password.html" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
+    <configuration name="register.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/app_sh.py/templates/register.html" useBuiltInWebServerPort="true">
       <method v="2" />
     </configuration>
     <configuration name="app_sh" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
@@ -111,7 +114,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="data" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="data (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="flask" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -119,12 +122,12 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/templates" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/templates/data.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/data.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -155,35 +158,13 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="kospi_show" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="flask" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/kospi_show.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.kosdaq_show" />
         <item itemvalue="Python.app_sh" />
-        <item itemvalue="JavaScript Debug.kospi_g.html" />
-        <item itemvalue="Python.kospi_show" />
-        <item itemvalue="Python.data" />
+        <item itemvalue="JavaScript Debug.password.html" />
+        <item itemvalue="JavaScript Debug.register.html" />
+        <item itemvalue="Python.data (1)" />
+        <item itemvalue="Python.kosdaq_show" />
       </list>
     </recent_temporary>
   </component>
@@ -225,7 +206,7 @@
       <workItem from="1607060694505" duration="5270000" />
       <workItem from="1607497490858" duration="4236000" />
       <workItem from="1607523466273" duration="17559000" />
-      <workItem from="1607677692890" duration="5776000" />
+      <workItem from="1607677692890" duration="10755000" />
     </task>
     <servers />
   </component>
@@ -284,6 +265,7 @@
     <SUITE FILE_PATH="coverage/app_sh_py$login__1_.coverage" NAME="login (1) Coverage Results" MODIFIED="1605512427559" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/controller" />
     <SUITE FILE_PATH="coverage/app_sh_py$app__1_.coverage" NAME="app (1) Coverage Results" MODIFIED="1605512314310" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/controller" />
     <SUITE FILE_PATH="coverage/app_sh_py$kosdaq_show.coverage" NAME="kosdaq_show Coverage Results" MODIFIED="1607699244120" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/app_sh_py$app_sh.coverage" NAME="app_sh Coverage Results" MODIFIED="1607699119925" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/app_sh_py$data__1_.coverage" NAME="data (1) Coverage Results" MODIFIED="1607704316313" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/app_sh_py$app_sh.coverage" NAME="app_sh Coverage Results" MODIFIED="1607705613549" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
