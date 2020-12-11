@@ -10,9 +10,6 @@ import plotly.express as px
 stock_code = pd.read_html('http://kind.krx.co.kr/corpgeneral/corpList.do?method=download', header=0)[0]
 #stock_code.head()
 
-# 데이터에서 정렬이 따로 필요하지는 않지만 테스트겸 Pandas sort_values를 이용하여 정렬을 시도
-# stock_code.sort_values(['상장일'], ascending=True)
-
 # 필요한 것은 "회사명"과 "종목코드" 이므로 필요없는 column들은 제외
 stock_code = stock_code[['회사명', '종목코드']]
 
@@ -22,7 +19,7 @@ stock_code = stock_code.rename(columns={'회사명': 'company', '종목코드': 
 
 # 종목코드가 6자리이기 때문에 6자리를 맞춰주기 위해 설정해줌
 stock_code.code = stock_code.code.map('{:06d}'.format)
-
+# df.get_stock_code()
 # LG화학의 일별 시세 url 가져오기
 # company='LG화학'
 # code = stock_code[stock_code.company==company].code.values[0].strip() ## strip() : 공백제거
@@ -39,6 +36,7 @@ code = stock_code[stock_code.company==company].code.values[0].strip() ## strip()
 
 df = pd.DataFrame()
 for page in range(1,21):
+    # url = 'https://finance.naver.com/sise/sise_index.nhn?code=KOSPI'
     url = 'http://finance.naver.com/item/sise_day.nhn?code={code}'.format(code=code)
     url = '{url}&page={page}'.format(url=url, page=page)
     print(url)
