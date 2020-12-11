@@ -1,7 +1,7 @@
+from flask import Flask, request, redirect, url_for, render_template
 import math
-
-from flask import Flask, request
-from flask import render_template
+import json
+import requests
 import pymysql
 import urllib.request
 
@@ -35,6 +35,30 @@ app = Flask(__name__)
 @app.route("/")
 def first():
     return render_template("home.html")
+
+@app.route('/oauth')
+def oauth():
+    code = str(request.args.get('code'))
+    #return str(code)
+
+    url = "https://kauth.kakao.com/oauth/token"
+    payload = "grant_type=authorization_code&client_id=7de6eba98a900d9c18e21fedc74b92ae&redirect_uri=http%3A%2F%2F127.0.0.1%3A5000%2Foauth&code=" + str(code)
+    headers = {
+        'Content-Type': "application/x-www-form-urlencoded",
+        'Cache-Control': "no-cache",
+         }
+    response = requests.request("POST", url, data=payload, headers=headers)
+    access_token = json.loads(((response.text).encode('utf-8')))['access_token']
+    #return access_token
+
+    url = "https://kapi.kakao.com/v1/user/signup"
+
+    headers.update({'Authorization': "Bearer" + str(access_token)})
+    response = requests.request("GET", url, headers=headers)
+
+    url = "https://kapi.kakao.com/v2/user/me"
+    response = requests.request("POST", url, headers=headers)
+    return (response.text)
 
 # 포트폴리오 첫 페이지
 @app.route("/portfolio")
@@ -102,7 +126,7 @@ def connetion_error(error):
 
 
 if __name__ == "__main__":
-
+    #app.run(debug=True)
     app.debug = True
     app.config['DEBUG'] = True
     app.run()

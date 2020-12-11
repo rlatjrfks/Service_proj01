@@ -2,7 +2,7 @@ import requests
 import json
 
 # GET HTTP/1.1
-# https://kauth.kakao.com/oauth/authorize?client_id=7de6eba98a900d9c18e21fedc74b92ae&redirect_uri=http://127.0.0.1:5000/portfolio&response_type=code
+# https://kauth.kakao.com/oauth/authorize?client_id=7de6eba98a900d9c18e21fedc74b92ae&redirect_uri=http://127.0.0.1:5000/oauth&response_type=code
 # app_key = "7de6eba98a900d9c18e21fedc74b92ae"
 # code = "MAcE0cPkDxM2U1h3gIF_lVjkU_laxcs711JjPG-S0DHzehDtVl3S6YVo3vSjk5SvOmNAfworDR4AAAF2TbSUdg"
 
@@ -11,7 +11,7 @@ url = "https://kauth.kakao.com/oauth/token"
 data = {
     "grant_type": "authorization_code",
     "client_id": "7de6eba98a900d9c18e21fedc74b92ae",
-    "redirect_uri": "http://127.0.0.1:5000/portfolio",
+    "redirect_uri": "http://127.0.0.1:5000/oauth",
     "code": "NUrIiJf9i4XSP349IhI0cs6UB9YzsNKzTCMDrKODzANXuktnovvQj1h6jNm92HS11oYPngo9c04AAAF2TcBzDw"
 
 }
