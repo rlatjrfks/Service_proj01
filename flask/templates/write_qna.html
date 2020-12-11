@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>나만의 주식 포트폴리오 : Q & A</title>
+        <title>나만의 주식 포트폴리오 : Q & A write</title>
         <link href="/static/css/styles.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
     </head>
@@ -76,34 +76,30 @@
                         <h1 class="mt-4">Q & A</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="/portfolio">My Portfolio</a></li>
-                            <li class="breadcrumb-item active">Q & A</li>
+                            <li class="breadcrumb-item active"><a href="/qna">Q & A</a></li>
+                            <li class="breadcrumb-item active">글쓰기</li>
                         </ol>
                         <div class="card mb-4">
                             <div class="card-body">
                                 <table class="table table-hover table-striped text-center" style="border: 1px solid;">
-                                    <thead>
-                                    <tr>
-                                        <th>번호</th>
-                                        <th>제목</th>
-                                        <th>글쓴이</th>
-                                        <th>내용</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                        {% for i in data_list %}
-                                        <tr>
-                                            <td>{{ i[0] }}</td>
-                                            <td>{{ i[1] }}</td>
-                                            <td>{{ i[2] }}</td>
-                                            <td>{{ i[3] }}</td>
-                                        </tr>
-                                        {% endfor %}
-
-                                    </tbody>
+                                    <form name="form" action="/qna" method="post">
+                                        <div>
+                                            <label for="title">제목 : </label>
+                                            <input type="text" id="title" name="title" placeholder="제목을 입력하세요"/>
+                                        </div>
+                                        <div>
+                                            <label for="writer">이메일 : </label>
+                                            <input type="text" id="writer" name="writer" placeholder="이메일을 입력하세요"/>
+                                        </div>
+                                        <div>
+                                            <label for="context">내용 : </label>
+                                            <textarea id="context" name="context" placeholder="내용을 입력하세요"></textarea>
+                                        </div>
+                                        <div class="button">
+                                            <button type="submit">작성하기</button>
+                                        </div>
+                                    </form>
                                 </table>
-
-                                <hr>
-                                <a class="btn btn-outline-info float-right" href="/qna-write">글쓰기</a>
                             </div>
                         </div>
                         <div style="height: 100vh"></div>

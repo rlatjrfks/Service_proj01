@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, flash
 from flask import render_template
 import pymysql
 import urllib.request
@@ -9,6 +9,7 @@ from bs4 import BeautifulSoup
 import openpyxl
 
 app = Flask(__name__)
+db_root = pymysql.connect(host='127.0.0.1', port=3306, user='root', passwd='@science9110', db='test', charset='utf8')
 
 # 홈
 @app.route("/")
@@ -152,9 +153,23 @@ def guide():
     return render_template("guide.html")
 
 # Q & A
-@app.route("/qna")
+@app.route("/qna", methods=["GET", "POST"])
 def qna():
-    db = pymysql.connect(host='127.0.0.1', port=3306, user='root', passwd='@science9110', db='test', charset='utf8')
+    if request.method == "POST":
+        title = request.form.get("title")
+        writer = request.form.get("writer")
+        context = request.form.get("context")
+
+        if title == "" or writer == "" or context == "":
+            return render_template("write_qna.html")
+
+        db = db_root
+        cur = db.cursor()
+        sql = "INSERT INTO board(title, writer, context) VALUES (%s, %s, %s)"
+        cur.execute(sql, (title, writer, context))
+        db.commit()
+
+    db = db_root
     cur = db.cursor()
 
     sql = "SELECT * from board"
@@ -164,6 +179,10 @@ def qna():
 
     return render_template("qna.html", data_list=data_list)
 
+# Q & A write
+@app.route("/qna-write")
+def qna_write():
+    return render_template("write_qna.html")
 
 
 # 로그인
