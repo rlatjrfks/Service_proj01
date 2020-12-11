@@ -1,42 +1,14 @@
-import math
-
 from flask import Flask, request
 from flask import render_template
 import pymysql
 import urllib.request
 import pandas as pd
-# 필요한 모듈 import 하기
 import plotly.express as px
-import plotly.io as po
 import requests
 from bs4 import BeautifulSoup
 import openpyxl
 
 app = Flask(__name__)
-
-# @app.route("/")
-# def hello():
-#     db = pymysql.connect(host='127.0.0.1',
-#                          port=3306, user='root', passwd='@science9110',
-#                          db='test', charset='utf8')
-#     cursor = db.cursor()
-#     sql = 'select * from test.table1'
-#     cursor.execute(sql)
-#     result = cursor.fetchall()
-#     print(result[0][0])
-#     data = result[0]
-#     print(type(data))
-#     db.close()
-#
-#     return str(data)
-
-# return "<h1>hellowolrd!</h1>"
-
-# #기능
-# 기본 페이지 실습중
-# @app.route("/")
-# def crawling():
-#     return render_template("index2.html")
 
 # 홈
 @app.route("/")
@@ -60,7 +32,7 @@ def first():
     df['date'] = pd.to_datetime(df['date'])
 
     # 반응형 그래프 그리기
-    fig = px.line(df, x='date', y='close', title='코스피 지수')
+    fig = px.line(df, x='date', y='close')
 
     fig.update_xaxes(
         rangeslider_visible=True,
@@ -95,7 +67,7 @@ def first():
     df1['date'] = pd.to_datetime(df1['date'])
 
     # 반응형 그래프 그리기
-    fig1 = px.line(df1, x='date', y='close', title='코스닥 지수')
+    fig1 = px.line(df1, x='date', y='close')
 
     fig1.update_xaxes(
         rangeslider_visible=True,
@@ -152,7 +124,9 @@ def kospi():
 def kosdaq():
     return render_template("kosdaq_g.html")
 
-# 포트폴리오 첫 페이지
+
+# 웹 페이지
+# 포트폴리오
 @app.route("/portfolio")
 def homepage():
     return render_template("index.html")
@@ -190,18 +164,14 @@ def qna():
 
     return render_template("qna.html", data_list=data_list)
 
-# 회원가입, 로그인
+
+
+# 로그인
 @app.route("/login")
 def login():
     return render_template("login.html")
 
-@app.route("/password")
-def password():
-    return render_template("password.html")
 
-@app.route("/register")
-def register():
-    return render_template("register.html")
 
 # 에러 페이지
 @app.errorhandler(404)
