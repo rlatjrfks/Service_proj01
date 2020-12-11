@@ -67,8 +67,7 @@ def first():
     # 컬럼명 'date'의 타입을 date로 바꿔줌
     df1['date'] = pd.to_datetime(df1['date'])
 
-    # 반응형 그래프 그리기
-    fig1 = px.line(df1, x='date', y='close')
+    fig1 = px.line(df1, x='date', y='close', title='코스닥 지수')
 
     fig1.update_xaxes(
         rangeslider_visible=True,
@@ -155,6 +154,7 @@ def guide():
 # Q & A
 @app.route("/qna", methods=["GET", "POST"])
 def qna():
+<<<<<<< HEAD
     if request.method == "POST":
         title = request.form.get("title")
         writer = request.form.get("writer")
@@ -170,6 +170,9 @@ def qna():
         db.commit()
 
     db = db_root
+=======
+    db = pymysql.connect(host='127.0.0.1', port=3306, user='root', passwd='1234', db='service', charset='utf8')
+>>>>>>> 9fc49b8858927c42b8eaf8ba787966a7181167c0
     cur = db.cursor()
 
     sql = "SELECT * from board"
