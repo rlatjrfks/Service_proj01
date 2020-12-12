@@ -1,5 +1,5 @@
 from flask import Flask, request, flash
-from flask import render_template
+from flask import render_template, make_response, session, escape
 import json
 import pymysql
 import urllib.request
@@ -8,11 +8,15 @@ import plotly.express as px
 import requests
 from bs4 import BeautifulSoup
 import openpyxl
+<<<<<<< HEAD
 import datetime
+=======
+from kakao_login import *
+>>>>>>> ca5b729966b8dcc897fe3e6f0437f46215f41d67
 
 app = Flask(__name__)
 db_root = pymysql.connect(host='ls-360d5e5827a35e0a46fa340307d68f5a00a3b151.cvbhe0hq8rxv.ap-northeast-2.rds.amazonaws.com', port=3306, user='dbmasteruser', passwd='Qa]HHh]dc1NsX>VLfo<=JA^1GcEWOCY$', db='dbmaster', charset='utf8')
-
+code_count = 0
 # 홈
 @app.route("/")
 def first():
@@ -93,7 +97,7 @@ def first():
     sheet = wb.active
 
     # 데이터 프레임 생성
-    sheet.append(["종목명", "현재가", "등락률"])
+    sheet.append(["종목명", "현재가"])
 
     # 데이터 크롤링
     for i in range(1, 40):
@@ -107,14 +111,13 @@ def first():
             for ta in table:
                 name = ta.select_one("td > a")
                 money = ta.select_one("td.number")
-                span = ta.select("td.number > span")
                 if name == None:
                     continue
-                sheet.append([name.text, money.text, span[1].text])
+                sheet.append([name.text, money.text])
 
     # 작업 마친 후 파일 저장
     wb.save("templates/주식데이터.xlsx")
-
+    session.clear()
     return render_template("home.html")
 
 # 코스피
@@ -132,11 +135,23 @@ def kosdaq():
 # 포트폴리오
 @app.route("/portfolio")
 def homepage():
-    return render_template("index.html")
+    global key
+    global code_count
+    if code_count == 0:
+        code = code_login()
+        key = str(request.args.get('code'))
+        code.save_token(key)
+
+        auth, id, name = code.code_auth(key)
+        session['userID'] = id
+        session['userName'] = name
+        code_count = 1
+    return render_template("index.html", data=session['userName'])
 
 # 배당금 내역
 @app.route("/dividend", methods=["GET", "POST"])
 def dividend():
+<<<<<<< HEAD
     if request.method == "POST":
         # id = request.form.get("id")
         baedang_date = request.form.get("baedang_date")
@@ -208,10 +223,14 @@ def myport():
 @app.route("/myport-write")
 def myport_write():
     return render_template("write_myport.html")
+=======
+    return render_template("dividend.html", data=session['userName'])
+>>>>>>> ca5b729966b8dcc897fe3e6f0437f46215f41d67
 
 # 투자 현황
 @app.route("/invest")
 def invest():
+<<<<<<< HEAD
     db = db_root
     cur = db.cursor()
 
@@ -221,12 +240,16 @@ def invest():
     cur.execute(sql)
 
     data_list = cur.fetchall()
+=======
+    return render_template("invest.html", data=session['userName'])
+>>>>>>> ca5b729966b8dcc897fe3e6f0437f46215f41d67
 
     return render_template("invest.html", data_list=data_list)
 
 # 실현 손익
 @app.route("/monthly")
 def monthly():
+<<<<<<< HEAD
     db = db_root
     cur = db.cursor()
 
@@ -238,18 +261,21 @@ def monthly():
     data_list = cur.fetchall()
 
     return render_template("monthly.html", data_list=data_list)
+=======
+    return render_template("monthly.html", data=session['userName'])
+>>>>>>> ca5b729966b8dcc897fe3e6f0437f46215f41d67
 
 # 이용 가이드
 @app.route("/guide")
 def guide():
-    return render_template("guide.html")
+    return render_template("guide.html", data=session['userName'])
 
 # Q & A
 @app.route("/qna", methods=["GET", "POST"])
 def qna():
     if request.method == "POST":
         title = request.form.get("title")
-        writer = request.form.get("writer")
+        writer = session['userID']
         context = request.form.get("context")
 
         if title == "" or writer == "" or context == "":
@@ -269,20 +295,18 @@ def qna():
 
     data_list = cur.fetchall()
 
-    return render_template("qna.html", data_list=data_list)
+    return render_template("qna.html", data_list=data_list, data=session['userName'])
 
 # Q & A write
 @app.route("/qna-write")
 def qna_write():
-    return render_template("write_qna.html")
+    return render_template("write_qna.html", data=session['userName'])
 
 
-# 로그인
+#로그인
 @app.route("/login")
 def login():
     return render_template("login.html")
-
-
 
 # 에러 페이지
 @app.errorhandler(404)
@@ -299,8 +323,7 @@ def connetion_error(error):
 
 
 if __name__ == "__main__":
-
     app.debug = True
     app.config['DEBUG'] = True
-#    app.run(host="0.0.0.0", port="5000")
+    app.secret_key = b'asdf[1#"sdg'
     app.run()
