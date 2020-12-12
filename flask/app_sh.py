@@ -92,7 +92,7 @@ def first():
     sheet = wb.active
 
     # 데이터 프레임 생성
-    sheet.append(["종목명", "현재가"])
+    sheet.append(["종목명", "현재가", "등락률"])
 
     # 데이터 크롤링
     for i in range(1, 40):
@@ -106,9 +106,10 @@ def first():
             for ta in table:
                 name = ta.select_one("td > a")
                 money = ta.select_one("td.number")
+                span = ta.select("td.number > span")
                 if name == None:
                     continue
-                sheet.append([name.text, money.text])
+                sheet.append([name.text, money.text, span[1].text])
 
     # 작업 마친 후 파일 저장
     wb.save("templates/주식데이터.xlsx")
