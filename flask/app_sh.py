@@ -115,18 +115,7 @@ def first():
     wb.save("templates/주식데이터.xlsx")
 
     return render_template("home.html")
-# 로그인
-@app.route("/test")
-def test():
-    code = code_login()
-    #token = code.save_token()
-    #auth = code.req('/v2/user/me',token, '', 'POST')
-    #print("response status:\n%d" % auth.status_code)
-    #print("response headers:\n%s" % auth.headers)
-    #print("response body:\n%s" % auth.text)
-    global key
-    auth = code.code_auth(key)
-    return auth
+
 # 코스피
 @app.route("/kospi")
 def kospi():
@@ -142,10 +131,12 @@ def kosdaq():
 # 포트폴리오
 @app.route("/portfolio")
 def homepage():
-    save = code_login()
+    code = code_login()
     global key
     key = str(request.args.get('code'))
-    save.save_token(key)
+    code.save_token(key)
+
+    auth = code.code_auth(key)
     return render_template("index.html")
 
 # 배당금 내역
@@ -205,8 +196,6 @@ def qna_write():
 @app.route("/login")
 def login():
     return render_template("login.html")
-
-
 
 # 에러 페이지
 @app.errorhandler(404)

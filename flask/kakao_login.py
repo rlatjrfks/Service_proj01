@@ -2,12 +2,13 @@ import requests
 import json
 from flask import Flask
 from flask import request
-
+import pymysql
 # GET HTTP/1.1
 #https://kauth.kakao.com/oauth/authorize?client_id=7de6eba98a900d9c18e21fedc74b92ae&redirect_uri=http://127.0.0.1:5000/portfolio&response_type=code
 #code = "MAcE0cPkDxM2U1h3gIF_lVjkU_laxcs711JjPG-S0DHzehDtVl3S6YVo3vSjk5SvOmNAfworDR4AAAF2TbSUdg"
 
 class code_login:
+
     def __init__(self):
         return
 
@@ -66,20 +67,36 @@ class code_login:
 
         url = "https://kapi.kakao.com/v2/user/me"
         response = requests.request("GET", url, headers=headers)
-        print("Response:",response.text)
+
+        jsonObject = json.loads(response.text)
+        IDArray = jsonObject.get("id")
+        NickArray = jsonObject.get("properties").get("nickname")
+        print("ID: ",IDArray)
+        print("Nick: ",NickArray)
+        self.db_insert(IDArray,NickArray)
         return (response.text)
 
-    def req(self, path, token ,query, method, data={}):
-        url = 'https://kapi.kakao.com' + path
-        headers = {'Authorization': 'Bearer' + token}
-        print('HTTP Method: %s' % method)
-        print('Request URL: %s' % url)
-        print('Headers: %s' % headers)
-        print('QueryString: %s' % query)
+    def db_insert(self, ID, Nickname):
+        db_root = pymysql.connect(
+            host='ls-360d5e5827a35e0a46fa340307d68f5a00a3b151.cvbhe0hq8rxv.ap-northeast-2.rds.amazonaws.com', port=3306,
+            user='dbmasteruser', passwd='Qa]HHh]dc1NsX>VLfo<=JA^1GcEWOCY$', db='dbmaster', charset='utf8')
 
-        if method == 'GET':
-            return requests.get(url, headers=headers)
-        else:
-            return requests.post(url, headers=headers, data=data)
+        db = db_root
+        cur = db.cursor()
+        sql = "INSERT INTO user_info(ID, Nickname) VALUES (%s, %s)"
+        cur.execute(sql, (ID, Nickname))
+        db.commit()
+
+        db = db_root
+        cur = db.cursor()
+
+        sql = "SELECT * from user_info"
+        cur.execute(sql)
+
+        data_list = cur.fetchall()
+
+        return
+
+
 
 
