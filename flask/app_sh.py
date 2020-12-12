@@ -94,7 +94,7 @@ def first():
     sheet = wb.active
 
     # 데이터 프레임 생성
-    sheet.append(["종목명", "현재가"])
+    sheet.append(["종목명", "현재가", "등락률"])
 
     # 데이터 크롤링
     for i in range(1, 40):
@@ -108,13 +108,18 @@ def first():
             for ta in table:
                 name = ta.select_one("td > a")
                 money = ta.select_one("td.number")
+                span = ta.select("td.number > span")
                 if name == None:
                     continue
-                sheet.append([name.text, money.text])
+                sheet.append([name.text, money.text, span[1].text])
+
+
 
     # 작업 마친 후 파일 저장
     wb.save("templates/주식데이터.xlsx")
     session.clear()
+    global code_count
+    code_count = 0
     return render_template("home.html")
 
 # 코스피
@@ -132,6 +137,17 @@ def kosdaq():
 # 포트폴리오
 @app.route("/portfolio")
 def homepage():
+<<<<<<< HEAD
+    print("????????")
+    code = code_login()
+    global key
+    key = str(request.args.get('code'))
+    code.save_token(key)
+
+    auth = code.code_auth(key)
+    print("???")
+    return render_template("index.html")
+=======
     global key
     global code_count
     if code_count == 0:
@@ -144,6 +160,7 @@ def homepage():
         session['userName'] = name
         code_count = 1
     return render_template("index.html", data=session['userName'])
+>>>>>>> 465496a7746fb4c3c17936afa932e26e7baba974
 
 # 배당금 내역
 @app.route("/dividend", methods=["GET", "POST"])
