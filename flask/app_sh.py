@@ -8,11 +8,8 @@ import plotly.express as px
 import requests
 from bs4 import BeautifulSoup
 import openpyxl
-<<<<<<< HEAD
 import datetime
-=======
 from kakao_login import *
->>>>>>> ca5b729966b8dcc897fe3e6f0437f46215f41d67
 
 app = Flask(__name__)
 db_root = pymysql.connect(host='ls-360d5e5827a35e0a46fa340307d68f5a00a3b151.cvbhe0hq8rxv.ap-northeast-2.rds.amazonaws.com', port=3306, user='dbmasteruser', passwd='Qa]HHh]dc1NsX>VLfo<=JA^1GcEWOCY$', db='dbmaster', charset='utf8')
@@ -151,7 +148,6 @@ def homepage():
 # 배당금 내역
 @app.route("/dividend", methods=["GET", "POST"])
 def dividend():
-<<<<<<< HEAD
     if request.method == "POST":
         # id = request.form.get("id")
         baedang_date = request.form.get("baedang_date")
@@ -222,15 +218,11 @@ def myport():
 # 포트폴리오 내역 write
 @app.route("/myport-write")
 def myport_write():
-    return render_template("write_myport.html")
-=======
-    return render_template("dividend.html", data=session['userName'])
->>>>>>> ca5b729966b8dcc897fe3e6f0437f46215f41d67
+    return render_template("write_myport.html", data=session['userName'])
 
 # 투자 현황
 @app.route("/invest")
 def invest():
-<<<<<<< HEAD
     db = db_root
     cur = db.cursor()
 
@@ -240,16 +232,12 @@ def invest():
     cur.execute(sql)
 
     data_list = cur.fetchall()
-=======
-    return render_template("invest.html", data=session['userName'])
->>>>>>> ca5b729966b8dcc897fe3e6f0437f46215f41d67
+    return render_template("invest.html", data_list = data_list, data=session['userName'])
 
-    return render_template("invest.html", data_list=data_list)
 
 # 실현 손익
 @app.route("/monthly")
 def monthly():
-<<<<<<< HEAD
     db = db_root
     cur = db.cursor()
 
@@ -260,10 +248,7 @@ def monthly():
 
     data_list = cur.fetchall()
 
-    return render_template("monthly.html", data_list=data_list)
-=======
-    return render_template("monthly.html", data=session['userName'])
->>>>>>> ca5b729966b8dcc897fe3e6f0437f46215f41d67
+    return render_template("monthly.html", data_list=data_list, data=session['userName'])
 
 # 이용 가이드
 @app.route("/guide")
