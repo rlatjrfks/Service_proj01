@@ -1,5 +1,5 @@
 from flask import Flask, request, flash
-from flask import render_template
+from flask import render_template, make_response, session, escape
 import json
 import pymysql
 import urllib.request
@@ -113,7 +113,7 @@ def first():
 
     # 작업 마친 후 파일 저장
     wb.save("templates/주식데이터.xlsx")
-
+    session.clear()
     return render_template("home.html")
 
 # 코스피
@@ -136,7 +136,8 @@ def homepage():
     key = str(request.args.get('code'))
     code.save_token(key)
 
-    auth = code.code_auth(key)
+    auth, id = code.code_auth(key)
+    session['userID'] = id
     return render_template("index.html")
 
 # 배당금 내역
@@ -164,7 +165,7 @@ def guide():
 def qna():
     if request.method == "POST":
         title = request.form.get("title")
-        writer = request.form.get("writer")
+        writer = session['userID']
         context = request.form.get("context")
 
         if title == "" or writer == "" or context == "":
@@ -214,4 +215,5 @@ def connetion_error(error):
 if __name__ == "__main__":
     app.debug = True
     app.config['DEBUG'] = True
+    app.secret_key = b'asdf[1#"sdg'
     app.run()

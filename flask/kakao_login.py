@@ -74,7 +74,7 @@ class code_login:
         print("ID: ",IDArray)
         print("Nick: ",NickArray)
         self.db_insert(IDArray,NickArray)
-        return (response.text)
+        return (response.text, IDArray)
 
     def db_insert(self, ID, Nickname):
         db_root = pymysql.connect(
@@ -84,10 +84,8 @@ class code_login:
         db = db_root
         cur = db.cursor()
         sql = "INSERT INTO user_info(ID, Nickname) VALUES (%s, %s)"
-        sql1 = "SELECT ID FROM user_info"
-        if sql1 == None:
-            cur.execute(sql, (ID, Nickname))
-            db.commit()
+        cur.execute(sql, (ID, Nickname))
+        db.commit()
 
         db = db_root
         cur = db.cursor()
