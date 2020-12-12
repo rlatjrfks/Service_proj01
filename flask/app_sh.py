@@ -1,66 +1,132 @@
-from flask import Flask, request, redirect, url_for, render_template
-import math
-import json
-import requests
+from flask import Flask, request, flash
+from flask import render_template
 import pymysql
 import urllib.request
+import pandas as pd
+import plotly.express as px
+import requests
+from bs4 import BeautifulSoup
+import openpyxl
 
 app = Flask(__name__)
-
-# @app.route("/")
-# def hello():
-#     db = pymysql.connect(host='127.0.0.1',
-#                          port=3306, user='root', passwd='@science9110',
-#                          db='test', charset='utf8')
-#     cursor = db.cursor()
-#     sql = 'select * from test.table1'
-#     cursor.execute(sql)
-#     result = cursor.fetchall()
-#     print(result[0][0])
-#     data = result[0]
-#     print(type(data))
-#     db.close()
-#
-#     return str(data)
-
-# return "<h1>hellowolrd!</h1>"
-
-# #기능
-# 기본 페이지 실습중
-# @app.route("/")
-# def crawling():
-#     return render_template("index2.html")
+db_root = pymysql.connect(host='ls-360d5e5827a35e0a46fa340307d68f5a00a3b151.cvbhe0hq8rxv.ap-northeast-2.rds.amazonaws.com', port=3306, user='dbmasteruser', passwd='Qa]HHh]dc1NsX>VLfo<=JA^1GcEWOCY$', db='dbmaster', charset='utf8')
 
 # 홈
 @app.route("/")
 def first():
+    # 코스피
+    df = pd.DataFrame()
+    for page in range(1, 21):
+        url = 'https://finance.naver.com/sise/sise_index_day.nhn?code=KOSPI'
+        url = '{url}&page={page}'.format(url=url, page=page)
+        # print(url)
+        df = df.append(pd.read_html(url, header=0)[0], ignore_index=True)
+
+    # df.dropna()를 이용해 결측값 있는 행 제거
+    df = df.dropna()
+
+    df = df.rename(columns={'날짜': 'date', '체결가': 'close'})
+    # 데이터의 타입을 int형으로 바꿔줌
+    df['close', 'volume'] = df['close'].astype(int)
+
+    # 컬럼명 'date'의 타입을 date로 바꿔줌
+    df['date'] = pd.to_datetime(df['date'])
+
+    # 반응형 그래프 그리기
+    fig = px.line(df, x='date', y='close')
+
+    fig.update_xaxes(
+        rangeslider_visible=True,
+        rangeselector=dict(
+            buttons=list([
+                dict(count=1, label="1m", step="month", stepmode="backward"),
+                dict(count=3, label="3m", step="month", stepmode="backward"),
+                dict(count=6, label="6m", step="month", stepmode="backward"),
+                dict(step="all")
+            ])
+        )
+    )
+    fig.write_html("templates/kospi_g.html")
+
+
+    # 코스닥
+    df1 = pd.DataFrame()
+    for page in range(1, 21):
+        url1 = 'https://finance.naver.com/sise/sise_index_day.nhn?code=KOSDAQ'
+        url1 = '{url}&page={page}'.format(url=url1, page=page)
+        # print(url)
+        df1 = df1.append(pd.read_html(url1, header=0)[0], ignore_index=True)
+
+    # df.dropna()를 이용해 결측값 있는 행 제거
+    df1 = df1.dropna()
+
+    df1 = df1.rename(columns={'날짜': 'date', '체결가': 'close'})
+    # 데이터의 타입을 int형으로 바꿔줌
+    df1['close', 'volume'] = df1['close'].astype(int)
+
+    # 컬럼명 'date'의 타입을 date로 바꿔줌
+    df1['date'] = pd.to_datetime(df1['date'])
+
+    fig1 = px.line(df1, x='date', y='close', title='코스닥 지수')
+
+    fig1.update_xaxes(
+        rangeslider_visible=True,
+        rangeselector=dict(
+            buttons=list([
+                dict(count=1, label="1m", step="month", stepmode="backward"),
+                dict(count=3, label="3m", step="month", stepmode="backward"),
+                dict(count=6, label="6m", step="month", stepmode="backward"),
+                dict(step="all")
+            ])
+        )
+    )
+    fig1.write_html("templates/kosdaq_g.html")
+
+
+    # 주식 데이터 크롤링
+    # 내가 작업할 Workbook 생성하기
+    wb = openpyxl.Workbook()
+
+    # 작업할 Workbook 내 Sheet 활성화
+    sheet = wb.active
+
+    # 데이터 프레임 생성
+    sheet.append(["종목명", "현재가"])
+
+    # 데이터 크롤링
+    for i in range(1, 40):
+        raw = requests.get("https://finance.naver.com/sise/sise_market_sum.nhn?&page=" + str(i))
+        html = BeautifulSoup(raw.text, 'html.parser')
+
+        container = html.select("table.type_2 > tbody")
+
+        for con in container:
+            table = con.select("tr")
+            for ta in table:
+                name = ta.select_one("td > a")
+                money = ta.select_one("td.number")
+                if name == None:
+                    continue
+                sheet.append([name.text, money.text])
+
+    # 작업 마친 후 파일 저장
+    wb.save("templates/주식데이터.xlsx")
+
     return render_template("home.html")
 
-@app.route('/oauth')
-def oauth():
-    code = str(request.args.get('code'))
-    #return str(code)
+# 코스피
+@app.route("/kospi")
+def kospi():
+    return render_template("kospi_g.html")
 
-    url = "https://kauth.kakao.com/oauth/token"
-    payload = "grant_type=authorization_code&client_id=7de6eba98a900d9c18e21fedc74b92ae&redirect_uri=http%3A%2F%2F127.0.0.1%3A5000%2Foauth&code=" + str(code)
-    headers = {
-        'Content-Type': "application/x-www-form-urlencoded",
-        'Cache-Control': "no-cache",
-         }
-    response = requests.request("POST", url, data=payload, headers=headers)
-    access_token = json.loads(((response.text).encode('utf-8')))['access_token']
-    #return access_token
+# 코스닥
+@app.route("/kosdaq")
+def kosdaq():
+    return render_template("kosdaq_g.html")
 
-    url = "https://kapi.kakao.com/v1/user/signup"
 
-    headers.update({'Authorization': "Bearer" + str(access_token)})
-    response = requests.request("GET", url, headers=headers)
-
-    url = "https://kapi.kakao.com/v2/user/me"
-    response = requests.request("POST", url, headers=headers)
-    return (response.text)
-
-# 포트폴리오 첫 페이지
+# 웹 페이지
+# 포트폴리오
 @app.route("/portfolio")
 def homepage():
     return render_template("index.html")
@@ -86,9 +152,23 @@ def guide():
     return render_template("guide.html")
 
 # Q & A
-@app.route("/qna")
+@app.route("/qna", methods=["GET", "POST"])
 def qna():
-    db = pymysql.connect(host='127.0.0.1', port=3306, user='root', passwd='1234', db='service', charset='utf8')
+    if request.method == "POST":
+        title = request.form.get("title")
+        writer = request.form.get("writer")
+        context = request.form.get("context")
+
+        if title == "" or writer == "" or context == "":
+            return render_template("write_qna.html")
+
+        db = db_root
+        cur = db.cursor()
+        sql = "INSERT INTO board(title, writer, context) VALUES (%s, %s, %s)"
+        cur.execute(sql, (title, writer, context))
+        db.commit()
+
+    db = db_root
     cur = db.cursor()
 
     sql = "SELECT * from board"
@@ -98,18 +178,18 @@ def qna():
 
     return render_template("qna.html", data_list=data_list)
 
-# 회원가입, 로그인
+# Q & A write
+@app.route("/qna-write")
+def qna_write():
+    return render_template("write_qna.html")
+
+
+# 로그인
 @app.route("/login")
 def login():
     return render_template("login.html")
 
-@app.route("/password")
-def password():
-    return render_template("password.html")
 
-@app.route("/register")
-def register():
-    return render_template("register.html")
 
 # 에러 페이지
 @app.errorhandler(404)
@@ -126,7 +206,7 @@ def connetion_error(error):
 
 
 if __name__ == "__main__":
-    #app.run(debug=True)
+
     app.debug = True
     app.config['DEBUG'] = True
     app.run()

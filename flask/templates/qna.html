@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>나만의 주식 포트폴리오 : 이용가이드</title>
+        <title>나만의 주식 포트폴리오 : Q & A</title>
         <link href="/static/css/styles.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
     </head>
@@ -86,6 +86,7 @@
                                         <th>번호</th>
                                         <th>제목</th>
                                         <th>글쓴이</th>
+                                        <th>내용</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -94,6 +95,7 @@
                                             <td>{{ i[0] }}</td>
                                             <td>{{ i[1] }}</td>
                                             <td>{{ i[2] }}</td>
+                                            <td>{{ i[3] }}</td>
                                         </tr>
                                         {% endfor %}
 
@@ -101,7 +103,7 @@
                                 </table>
 
                                 <hr>
-                                <a class="btn btn-outline-info float-right">글쓰기</a>
+                                <a class="btn btn-outline-info float-right" href="/qna-write">글쓰기</a>
                             </div>
                         </div>
                         <div style="height: 100vh"></div>
