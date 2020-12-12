@@ -74,7 +74,7 @@ class code_login:
         print("ID: ",IDArray)
         print("Nick: ",NickArray)
         self.db_insert(IDArray,NickArray)
-        return (response.text, IDArray, NickArray)
+        return (response.text, IDArray)
 
     def db_insert(self, ID, Nickname):
         db_root = pymysql.connect(

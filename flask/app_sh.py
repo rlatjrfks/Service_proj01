@@ -12,7 +12,7 @@ from kakao_login import *
 
 app = Flask(__name__)
 db_root = pymysql.connect(host='ls-360d5e5827a35e0a46fa340307d68f5a00a3b151.cvbhe0hq8rxv.ap-northeast-2.rds.amazonaws.com', port=3306, user='dbmasteruser', passwd='Qa]HHh]dc1NsX>VLfo<=JA^1GcEWOCY$', db='dbmaster', charset='utf8')
-code_count = 0
+
 # 홈
 @app.route("/")
 def first():
@@ -131,38 +131,34 @@ def kosdaq():
 # 포트폴리오
 @app.route("/portfolio")
 def homepage():
+    code = code_login()
     global key
-    global code_count
-    if code_count == 0:
-        code = code_login()
-        key = str(request.args.get('code'))
-        code.save_token(key)
+    key = str(request.args.get('code'))
+    code.save_token(key)
 
-        auth, id, name = code.code_auth(key)
-        session['userID'] = id
-        session['userName'] = name
-        code_count = 1
-    return render_template("index.html", data=session['userName'])
+    auth, id = code.code_auth(key)
+    session['userID'] = id
+    return render_template("index.html")
 
 # 배당금 내역
 @app.route("/dividend")
 def dividend():
-    return render_template("dividend.html", data=session['userName'])
+    return render_template("dividend.html")
 
 # 투자 현황
 @app.route("/invest")
 def invest():
-    return render_template("invest.html", data=session['userName'])
+    return render_template("invest.html")
 
 # 월간 이력
 @app.route("/monthly")
 def monthly():
-    return render_template("monthly.html", data=session['userName'])
+    return render_template("monthly.html")
 
 # 이용 가이드
 @app.route("/guide")
 def guide():
-    return render_template("guide.html", data=session['userName'])
+    return render_template("guide.html")
 
 # Q & A
 @app.route("/qna", methods=["GET", "POST"])
@@ -189,12 +185,12 @@ def qna():
 
     data_list = cur.fetchall()
 
-    return render_template("qna.html", data_list=data_list, data=session['userName'])
+    return render_template("qna.html", data_list=data_list)
 
 # Q & A write
 @app.route("/qna-write")
 def qna_write():
-    return render_template("write_qna.html", data=session['userName'])
+    return render_template("write_qna.html")
 
 
 #로그인
