@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-<<<<<<< HEAD
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>나만의 주식 포트폴리오 : 월간 이력</title>
-    <link href="static/css/styles.css" rel="stylesheet" />
+    <title>나만의 주식 포트폴리오 : 배당금 내역</title>
+    <link href="/static/css/styles.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
 </head>
-<body class="sb-nav-fixed">
+<body>
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
     <a class="navbar-brand" href="portfolio">My Stock</a>
     <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
@@ -26,7 +25,7 @@
                 <a class="dropdown-item" href="#">Settings</a>
                 <a class="dropdown-item" href="#">Activity Log</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="/">Logout</a>
+                <a class="dropdown-item" href="login">Logout</a>
             </div>
         </li>
     </ul>
@@ -73,79 +72,52 @@
                 <div class="small">Logged in as:</div>
                 My Stock
             </div>
-=======
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>나만의 주식 포트폴리오 : 월간 이력</title>
-        <link href="static/css/styles.css" rel="stylesheet" />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
-    </head>
-    <body class="sb-nav-fixed">
-        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <a class="navbar-brand" href="portfolio">My Stock</a>
-            <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
-            <!-- Navbar Search-->
-            <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
-            </form>
-            <!-- Navbar-->
-            <ul class="navbar-nav ml-auto ml-md-0">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                        &nbsp;{{ data }} 님 반갑습니다.
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="/">Logout</a>
-                    </div>
-                </li>
-            </ul>
->>>>>>> ca5b729966b8dcc897fe3e6f0437f46215f41d67
         </nav>
     </div>
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid">
-                <h1 class="mt-4">실현 손익</h1>
+                <h1 class="mt-4">배당금 내역</h1>
                 <ol class="breadcrumb mb-4">
-                    <li class="breadcrumb-item"><a href="/">My Portfolio</a></li>
-                    <li class="breadcrumb-item active">실현 손익</li>
+                    <li class="breadcrumb-item"><a href="/portfolio">My Portfolio</a></li>
+                    <li class="breadcrumb-item active"><a href="/qna">배당금 내역</a></li>
+                    <li class="breadcrumb-item active">글쓰기</li>
                 </ol>
-            </div>
-            <div class="card mb-4">
-                    <div class="card-header">
-                        <i class="fas fa-table mr-1"></i>
-                        실현 손익
-                    </div>
+                <div class="card mb-4">
                     <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                <thead>
+                        <table align="left" style="padding-left:30px; padding-top: 30px">
+                            <form name="form" action="/dividend" method="post">
                                 <tr>
-                                    <th>판매 날짜</th>
-                                    <th>종목명</th>
-                                    <th>평균 판매가</th>
-                                    <th>판매 수량</th>
-                                    <th>실현손익</th>
+                                    <td style="padding-top: 15px">배당일</td>
                                 </tr>
-                                </thead>
-                                <tbody>
-                                {% for i in data_list %}
                                 <tr>
-                                    <td>{{ i[2] }}</td>
-                                    <td>{{ i[3] }}</td>
-                                    <td>{{ i[6] }}</td>
-                                    <td>{{ i[7] }}</td>
+                                    <td><input type="text" id="baedang_date" name="baedang_date" placeholder="*배당일을 입력하세요 ex) 0000-00-00" style="margin-top:10px; width: 900px;"></td>
                                 </tr>
-                                {% endfor %}
-
-                                </tbody>
-                            </table>
-                        </div>
+                                <tr>
+                                    <td style="padding-top: 15px">종목명</td>
+                                </tr>
+                                <tr>
+                                    <td><input type="text" id="name" name="name" placeholder="*종목명을 입력하세요 ex) 삼성전자" style="margin-top:10px; width: 900px;"></td>
+                                </tr>
+                                <tr>
+                                    <td style="padding-top: 15px">배당금액</td>
+                                </tr>
+                                <tr>
+                                    <td><input type="number" id="baedang_price" name="baedang_price" placeholder="*배당금액을 입력하세요 ex) 1000" style="margin-top: 10px;width: 900px;"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2"style="padding-top: 20px" align="right">
+                                        <button class="btn btn-outline-info" type="submit">작성하기</button>
+                                        <a class="btn btn-outline-info" href="dividend">취소</a>
+                                    </td>
+                                </tr>
+                            </form>
+                        </table>
                     </div>
                 </div>
+                <div style="height: 100vh"></div>
+                <div class="card mb-4"><div class="card-body">When scrolling, the navigation stays at the top of the page. This is the end of the static navigation demo.</div></div>
+            </div>
         </main>
         <footer class="py-4 bg-light mt-auto">
             <div class="container-fluid">
@@ -164,9 +136,5 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 <script src="../../../../Downloads/startbootstrap-sb-admin-master/startbootstrap-sb-admin-master/dist/js/scripts.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-<script src="../../../../Downloads/startbootstrap-sb-admin-master/startbootstrap-sb-admin-master/dist/assets/demo/chart-area-demo.js"></script>
-<script src="../../../../Downloads/startbootstrap-sb-admin-master/startbootstrap-sb-admin-master/dist/assets/demo/chart-bar-demo.js"></script>
-<script src="../../../../Downloads/startbootstrap-sb-admin-master/startbootstrap-sb-admin-master/dist/assets/demo/chart-pie-demo.js"></script>
 </body>
 </html>
