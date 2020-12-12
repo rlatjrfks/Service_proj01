@@ -22,8 +22,7 @@
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="#">Settings</a>
-                <a class="dropdown-item" href="#">Activity Log</a>
+                &nbsp;{{ data }} 님 반갑습니다.
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="/">Logout</a>
             </div>
@@ -45,17 +44,13 @@
                         <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                         배당금 내역
                     </a>
-                    <a class="nav-link" href="myport">
-                        <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                        포트폴리오 내역
-                    </a>
                     <a class="nav-link" href="invest">
                         <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                         투자 현황
                     </a>
                     <a class="nav-link" href="monthly">
                         <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                        실현 손익
+                        월간 이력
                     </a>
                     <div class="sb-sidenav-menu-heading">Etc</div>
                     <a class="nav-link" href="guide">
@@ -91,26 +86,9 @@
                                     <td style="padding-top: 15px">제목</td>
                                 </tr>
                                 <tr>
-<<<<<<< HEAD
                                    <td><input type="text" id="title" name="title" placeholder="제목을 입력하세요" style="margin-top:10px; width: 900px;"></td>
                                </tr>
 
-=======
-<<<<<<< HEAD
-                                    <td><input type="text" id="title" name="title" placeholder="제목을 입력하세요" style="margin-top:10px; width: 900px;"></td>
-                                </tr>
-                                <tr>
-                                    <td style="padding-top: 15px">이메일</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="text" id="writer" name="writer" placeholder="이메일을 입력하세요" style="margin-top:10px; width: 900px;"></td>
-                                </tr>
-=======
-                                   <td><input type="text" id="title" name="title" placeholder="제목을 입력하세요" style="margin-top:10px; width: 900px;"></td>
-                               </tr>
-
->>>>>>> ca5b729966b8dcc897fe3e6f0437f46215f41d67
->>>>>>> 465496a7746fb4c3c17936afa932e26e7baba974
                                 <tr>
                                     <td style="padding-top: 15px">내용</td>
                                 </tr>
@@ -119,8 +97,11 @@
                                 </tr>
                                 <tr>
                                     <td colspan="2"style="padding-top: 20px" align="right">
+<!--                                    <div class="button">-->
+<!--                                            <button type="submit">작성하기</button>-->
+<!--                                    </div>-->
                                         <button class="btn btn-outline-info" type="submit">작성하기</button>
-                                        <a class="btn btn-outline-info" href="qna">취소</a>
+                                        <button class="btn btn-outline-info" href="qna">취소</button>
                                     </td>
                                 </tr>
                             </form>

@@ -74,7 +74,7 @@ class code_login:
         print("ID: ",IDArray)
         print("Nick: ",NickArray)
         self.db_insert(IDArray,NickArray)
-        return (response.text, IDArray)
+        return (response.text, IDArray, NickArray)
 
     def db_insert(self, ID, Nickname):
         db_root = pymysql.connect(
@@ -83,34 +83,20 @@ class code_login:
 
         db = db_root
         cur = db.cursor()
-        sql_check = "SELECT ID FROM user_info"
-        cur.execute(sql_check)
-        data_list = cur.fetchall()
-
-        for i in data_list:
-            if i==ID:
-                print("중복")
-                return
-
-        db = db_root
-        cur = db.cursor()
         sql = "INSERT INTO user_info(ID, Nickname) VALUES (%s, %s)"
-<<<<<<< HEAD
-        sql1 = "SELECT ID FROM user_info"
-
-        if sql1 == None:
-            cur.execute(sql, (ID, Nickname))
-            db.commit()
-=======
         cur.execute(sql, (ID, Nickname))
         db.commit()
->>>>>>> 465496a7746fb4c3c17936afa932e26e7baba974
 
         db = db_root
         cur = db.cursor()
 
         sql = "SELECT * from user_info"
         cur.execute(sql)
-        print("sssssssssssssssssssssssssssssss")
+
+        data_list = cur.fetchall()
 
         return
+
+
+
+

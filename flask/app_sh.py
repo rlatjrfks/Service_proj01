@@ -8,12 +8,11 @@ import plotly.express as px
 import requests
 from bs4 import BeautifulSoup
 import openpyxl
-import datetime
 from kakao_login import *
 
 app = Flask(__name__)
 db_root = pymysql.connect(host='ls-360d5e5827a35e0a46fa340307d68f5a00a3b151.cvbhe0hq8rxv.ap-northeast-2.rds.amazonaws.com', port=3306, user='dbmasteruser', passwd='Qa]HHh]dc1NsX>VLfo<=JA^1GcEWOCY$', db='dbmaster', charset='utf8')
-
+code_count = 0
 # 홈
 @app.route("/")
 def first():
@@ -36,7 +35,7 @@ def first():
     df['date'] = pd.to_datetime(df['date'])
 
     # 반응형 그래프 그리기
-    fig = px.line(df, x='date', y='close', title='코스피 지수')
+    fig = px.line(df, x='date', y='close')
 
     fig.update_xaxes(
         rangeslider_visible=True,
@@ -94,7 +93,7 @@ def first():
     sheet = wb.active
 
     # 데이터 프레임 생성
-    sheet.append(["종목명", "현재가", "등락률"])
+    sheet.append(["종목명", "현재가"])
 
     # 데이터 크롤링
     for i in range(1, 40):
@@ -108,18 +107,13 @@ def first():
             for ta in table:
                 name = ta.select_one("td > a")
                 money = ta.select_one("td.number")
-                span = ta.select("td.number > span")
                 if name == None:
                     continue
-                sheet.append([name.text, money.text, span[1].text])
-
-
+                sheet.append([name.text, money.text])
 
     # 작업 마친 후 파일 저장
     wb.save("templates/주식데이터.xlsx")
     session.clear()
-    global code_count
-    code_count = 0
     return render_template("home.html")
 
 # 코스피
@@ -137,18 +131,6 @@ def kosdaq():
 # 포트폴리오
 @app.route("/portfolio")
 def homepage():
-<<<<<<< HEAD
-<<<<<<< HEAD
-    print("????????")
-    code = code_login()
-    global key
-    key = str(request.args.get('code'))
-    code.save_token(key)
-
-    auth = code.code_auth(key)
-    print("???")
-    return render_template("index.html")
-=======
     global key
     global code_count
     if code_count == 0:
@@ -161,139 +143,26 @@ def homepage():
         session['userName'] = name
         code_count = 1
     return render_template("index.html", data=session['userName'])
->>>>>>> 465496a7746fb4c3c17936afa932e26e7baba974
-=======
-    code = code_login()
-    global key
-    key = str(request.args.get('code'))
-    code.save_token(key)
-
-    auth, id = code.code_auth(key)
-    session['userID'] = id
-    return render_template("index.html")
->>>>>>> new
 
 # 배당금 내역
-@app.route("/dividend", methods=["GET", "POST"])
+@app.route("/dividend")
 def dividend():
-<<<<<<< HEAD
-    if request.method == "POST":
-        # id = request.form.get("id")
-        baedang_date = request.form.get("baedang_date")
-        name = request.form.get("name")
-        baedang_price = request.form.get("baedang_price")
-
-        if id == "" or baedang_date == "" or name == "" or baedang_price == "":
-            return render_template("write_dividend.html")
-
-        db = db_root
-        cur = db.cursor()
-        sql = "INSERT INTO baedang(baedang_date, name, baedang_price) VALUES (%s, %s, %s)"
-        cur.execute(sql, (baedang_date, name, baedang_price))
-        # sql = "INSERT INTO baedang(id, baedang_date, name, baedang_price) VALUES (%s, %s , %s, %d)"
-        # cur.execute(sql, (id, baedang_date, name, baedang_price))
-        db.commit()
-
-    db = db_root
-    cur = db.cursor()
-
-    sql = "SELECT * from baedang"
-    cur.execute(sql)
-
-    data_list = cur.fetchall()
-
-    return render_template("dividend.html", data_list=data_list)
-
-# 배당금 write
-@app.route("/dividend-write")
-def dividend_write():
-    return render_template("write_dividend.html")
-
-# 포트폴리오 내역 현황
-@app.route("/myport", methods=["GET", "POST"])
-def myport():
-    if request.method == "POST":
-
-        # id = request.form.get("id")
-        buy_date = request.form.get("buy_date")
-        sell_date = request.form.get("sell_date")
-        name = request.form.get("name")
-        buy_price = request.form.get("buy_price")
-        buy_count = request.form.get("buy_count")
-        sell_price = request.form.get("sell_price")
-        sell_count = request.form.get("sell_count")
-
-        if id == "" or buy_date == "" or name == "" or buy_price == "" or buy_count == "":
-            return render_template("write_myport.html")
-
-        db = db_root
-        cur = db.cursor()
-        sql = "INSERT INTO jusik(buy_date, sell_date, name, buy_price, buy_count, sell_price, sell_count) VALUES (%s, %s, %s, %s, %s, %s, %s)"
-        cur.execute(sql, (buy_date, sell_date, name, buy_price, buy_count, sell_price, sell_count))
-        # sql = "INSERT INTO baedang(id, baedang_date, name, baedang_price) VALUES (%s, %s , %s, %s)"
-        # cur.execute(sql, (id, baedang_date, name, baedang_price))
-        db.commit()
-
-    db = db_root
-    cur = db.cursor()
-
-    sql = "SELECT * from jusik"
-    cur.execute(sql)
-
-    data_list = cur.fetchall()
-
-    return render_template("myport.html", data_list=data_list)
-
-# 포트폴리오 내역 write
-@app.route("/myport-write")
-def myport_write():
-    return render_template("write_myport.html", data=session['userName'])
-=======
-    return render_template("dividend.html")
->>>>>>> new
+    return render_template("dividend.html", data=session['userName'])
 
 # 투자 현황
 @app.route("/invest")
 def invest():
-<<<<<<< HEAD
-    db = db_root
-    cur = db.cursor()
+    return render_template("invest.html", data=session['userName'])
 
-    sql = "SELECT * from jusik"
-    # sql2 = "SELECT * from jongmok_list where = "
-=======
-    return render_template("invest.html")
->>>>>>> new
-
-    cur.execute(sql)
-
-    data_list = cur.fetchall()
-    return render_template("invest.html", data_list = data_list, data=session['userName'])
-
-
-# 실현 손익
+# 월간 이력
 @app.route("/monthly")
 def monthly():
-<<<<<<< HEAD
-    db = db_root
-    cur = db.cursor()
-
-    sql = "SELECT * from jusik"
-    # sql2 = "SELECT * from jongmok_list where = "
-
-    cur.execute(sql)
-
-    data_list = cur.fetchall()
-
-    return render_template("monthly.html", data_list=data_list, data=session['userName'])
-=======
-    return render_template("monthly.html")
->>>>>>> new
+    return render_template("monthly.html", data=session['userName'])
 
 # 이용 가이드
 @app.route("/guide")
 def guide():
-    return render_template("guide.html")
+    return render_template("guide.html", data=session['userName'])
 
 # Q & A
 @app.route("/qna", methods=["GET", "POST"])
@@ -320,12 +189,12 @@ def qna():
 
     data_list = cur.fetchall()
 
-    return render_template("qna.html", data_list=data_list)
+    return render_template("qna.html", data_list=data_list, data=session['userName'])
 
 # Q & A write
 @app.route("/qna-write")
 def qna_write():
-    return render_template("write_qna.html")
+    return render_template("write_qna.html", data=session['userName'])
 
 
 #로그인

@@ -1,7 +1,6 @@
 import pymysql
 from openpyxl import Workbook
 from openpyxl import load_workbook
-import numpy as np
 
 def insert_excel_to_db():
     conn = pymysql.connect(
@@ -18,10 +17,8 @@ def insert_excel_to_db():
             iter_rows = iter(ws.rows)
             next(iter_rows)
             for row in iter_rows:
-                value = row[1].value.split(",")
-                vallist = ''.join(value)
-                value_float = row[2].value.split("%")
-                curs.execute(sql, (row[0].value, vallist, value_float[0]))
+
+                curs.execute(sql, (row[0].value, row[1].value, row[2].value))
             conn.commit()
     finally:
         conn.close()

@@ -2781,7 +2781,6 @@ fieldset:disabled a.btn {
 }
 .btn-outline-info:not(:disabled):not(.disabled):active:focus, .btn-outline-info:not(:disabled):not(.disabled).active:focus, .show > .btn-outline-info.dropdown-toggle:focus {
   box-shadow: 0 0 0 0.2rem rgba(23, 162, 184, 0.5);
-  vertical-align: middle;
 }
 
 .btn-outline-warning {
