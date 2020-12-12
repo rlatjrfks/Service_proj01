@@ -1,5 +1,6 @@
 from flask import Flask, request, flash
 from flask import render_template
+import json
 import pymysql
 import urllib.request
 import pandas as pd
@@ -209,5 +210,4 @@ if __name__ == "__main__":
 
     app.debug = True
     app.config['DEBUG'] = True
-    app.run()
-    # app.run(host="0.0.0.0", port="5000")
+    app.run(host="0.0.0.0", port="5000")
