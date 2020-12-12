@@ -84,8 +84,10 @@ class code_login:
         db = db_root
         cur = db.cursor()
         sql = "INSERT INTO user_info(ID, Nickname) VALUES (%s, %s)"
-        cur.execute(sql, (ID, Nickname))
-        db.commit()
+        sql1 = "SELECT ID FROM user_info"
+        if sql1 == None:
+            cur.execute(sql, (ID, Nickname))
+            db.commit()
 
         db = db_root
         cur = db.cursor()
