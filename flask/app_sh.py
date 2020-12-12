@@ -8,6 +8,7 @@ import plotly.express as px
 import requests
 from bs4 import BeautifulSoup
 import openpyxl
+from kakao_login import *
 
 app = Flask(__name__)
 db_root = pymysql.connect(host='ls-360d5e5827a35e0a46fa340307d68f5a00a3b151.cvbhe0hq8rxv.ap-northeast-2.rds.amazonaws.com', port=3306, user='dbmasteruser', passwd='Qa]HHh]dc1NsX>VLfo<=JA^1GcEWOCY$', db='dbmaster', charset='utf8')
@@ -92,7 +93,7 @@ def first():
     sheet = wb.active
 
     # 데이터 프레임 생성
-    sheet.append(["종목명", "현재가", "등락률"])
+    sheet.append(["종목명", "현재가"])
 
     # 데이터 크롤링
     for i in range(1, 40):
@@ -106,16 +107,26 @@ def first():
             for ta in table:
                 name = ta.select_one("td > a")
                 money = ta.select_one("td.number")
-                span = ta.select("td.number > span")
                 if name == None:
                     continue
-                sheet.append([name.text, money.text, span[1].text])
+                sheet.append([name.text, money.text])
 
     # 작업 마친 후 파일 저장
     wb.save("templates/주식데이터.xlsx")
 
     return render_template("home.html")
-
+# 로그인
+@app.route("/test")
+def test():
+    code = code_login()
+    #token = code.save_token()
+    #auth = code.req('/v2/user/me',token, '', 'POST')
+    #print("response status:\n%d" % auth.status_code)
+    #print("response headers:\n%s" % auth.headers)
+    #print("response body:\n%s" % auth.text)
+    global key
+    auth = code.code_auth(key)
+    return auth
 # 코스피
 @app.route("/kospi")
 def kospi():
@@ -131,6 +142,10 @@ def kosdaq():
 # 포트폴리오
 @app.route("/portfolio")
 def homepage():
+    save = code_login()
+    global key
+    key = str(request.args.get('code'))
+    save.save_token(key)
     return render_template("index.html")
 
 # 배당금 내역
@@ -186,7 +201,7 @@ def qna_write():
     return render_template("write_qna.html")
 
 
-# 로그인
+#로그인
 @app.route("/login")
 def login():
     return render_template("login.html")
@@ -208,8 +223,6 @@ def connetion_error(error):
 
 
 if __name__ == "__main__":
-
     app.debug = True
     app.config['DEBUG'] = True
-#    app.run(host="0.0.0.0", port="5000")
     app.run()
