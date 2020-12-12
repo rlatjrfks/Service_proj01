@@ -82,33 +82,35 @@
                 <div class="card mb-4">
                     <div class="card-body">
                         <table align="left" style="padding-left:30px; padding-top: 30px">
-                            <tr>
-                                <td style="padding-top: 15px">제목</td>
-                            </tr>
-                            <tr>
-                                <td><input type="text" id="title" name="title" placeholder="제목을 입력하세요" style="margin-top:10px; width: 900px;"></td>
-                            </tr>
-                            <tr>
-                                <td style="padding-top: 15px">이메일</td>
-                            </tr>
-                            <tr>
-                                <td><input type="text" id="writer" name="writer" placeholder="이메일을 입력하세요" style="margin-top:10px; width: 900px;"></td>
-                            </tr>
-                            <tr>
-                                <td style="padding-top: 15px">내용</td>
-                            </tr>
-                            <tr>
-                                <td><textarea id="context" type="textarea" placeholder="내용을 입력하세요" name="context" size="100" style="margin-top: 10px; width: 900px; height : 400px;"></textarea></td>
-                            </tr>
-                            <tr>
-                                <td colspan="2"style="padding-top: 20px" align="right">
+                            <form name="form" action="/qna" method="post">
+                                <tr>
+                                    <td style="padding-top: 15px">제목</td>
+                                </tr>
+                                <tr>
+                                   <td><input type="text" id="title" name="title" placeholder="제목을 입력하세요" style="margin-top:10px; width: 900px;"></td>
+                               </tr>
+                                <tr>
+                                    <td style="padding-top: 15px">이메일</td>
+                                </tr>
+                                <tr>
+                                    <td><input type="text" id="writer" name="writer" placeholder="이메일을 입력하세요" style="margin-top:10px; width: 900px;"></td>
+                                </tr>
+                                <tr>
+                                    <td style="padding-top: 15px">내용</td>
+                                </tr>
+                                <tr>
+                                    <td><textarea id="context" type="textarea" placeholder="내용을 입력하세요" name="context" size="100" style="margin-top: 10px; width: 900px; height : 400px;"></textarea></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2"style="padding-top: 20px" align="right">
 <!--                                    <div class="button">-->
 <!--                                            <button type="submit">작성하기</button>-->
 <!--                                    </div>-->
-                                    <a class="btn btn-outline-info" type="submit">작성하기</a>
-                                    <a class="btn btn-outline-info" href="qna">취소</a>
-                                </td>
-                            </tr>
+                                        <button class="btn btn-outline-info" type="submit">작성하기</button>
+                                        <button class="btn btn-outline-info" href="qna">취소</button>
+                                    </td>
+                                </tr>
+                            </form>
                         </table>
                     </div>
                 </div>
