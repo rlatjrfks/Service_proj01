@@ -107,6 +107,7 @@ def first():
             for ta in table:
                 name = ta.select_one("td > a")
                 money = ta.select_one("td.number")
+                span = ta.select("td.number > span")
                 if name == None:
                     continue
                 sheet.append([name.text, money.text, span[1].text])
@@ -138,26 +139,115 @@ def homepage():
         key = str(request.args.get('code'))
         code.save_token(key)
 
-        auth, id, name = code.code_auth(key)
-        session['userID'] = id
+        auth, id_db, name = code.code_auth(key)
+        session['userID'] = id_db
         session['userName'] = name
         code_count = 1
     return render_template("index.html", data=session['userName'])
 
 # 배당금 내역
-@app.route("/dividend")
+@app.route("/dividend", methods=["GET", "POST"])
 def dividend():
-    return render_template("dividend.html", data=session['userName'])
+    if request.method == "POST":
+        # id = request.form.get("id")
+        baedang_date = request.form.get("baedang_date")
+        name = request.form.get("name")
+        baedang_price = request.form.get("baedang_price")
+
+        if id == "" or baedang_date == "" or name == "" or baedang_price == "":
+            return render_template("write_dividend.html")
+
+        db = db_root
+        cur = db.cursor()
+        sql = "INSERT INTO baedang(baedang_date, name, baedang_price) VALUES (%s, %s, %s)"
+        cur.execute(sql, (baedang_date, name, baedang_price))
+        # sql = "INSERT INTO baedang(id, baedang_date, name, baedang_price) VALUES (%s, %s , %s, %d)"
+        # cur.execute(sql, (id, baedang_date, name, baedang_price))
+        db.commit()
+
+    db = db_root
+    cur = db.cursor()
+
+    sql = "SELECT * from baedang"
+    cur.execute(sql)
+
+    data_list = cur.fetchall()
+
+    return render_template("dividend.html", data_list=data_list, data=session['userName'])
+
+# 배당금 write
+@app.route("/dividend-write")
+def dividend_write():
+    return render_template("write_dividend.html", data=session['userName'])
+
+@app.route("/myport", methods=["GET", "POST"])
+def myport():
+    if request.method == "POST":
+
+        # id = request.form.get("id")
+        buy_date = request.form.get("buy_date")
+        sell_date = request.form.get("sell_date")
+        name = request.form.get("name")
+        buy_price = request.form.get("buy_price")
+        buy_count = request.form.get("buy_count")
+        sell_price = request.form.get("sell_price")
+        sell_count = request.form.get("sell_count")
+
+        if id == "" or buy_date == "" or name == "" or buy_price == "" or buy_count == "":
+            return render_template("write_myport.html")
+
+        db = db_root
+        cur = db.cursor()
+        sql = "INSERT INTO jusik(buy_date, sell_date, name, buy_price, buy_count, sell_price, sell_count) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+        cur.execute(sql, (buy_date, sell_date, name, buy_price, buy_count, sell_price, sell_count))
+        # sql = "INSERT INTO baedang(id, baedang_date, name, baedang_price) VALUES (%s, %s , %s, %s)"
+        # cur.execute(sql, (id, baedang_date, name, baedang_price))
+        db.commit()
+
+    db = db_root
+    cur = db.cursor()
+
+    sql = "SELECT * from jusik"
+    cur.execute(sql)
+
+    data_list = cur.fetchall()
+
+    return render_template("myport.html", data_list=data_list, data=session['userName'])
+
+# 포트폴리오 내역 write
+@app.route("/myport-write")
+def myport_write():
+    return render_template("write_myport.html", data=session['userName'])
 
 # 투자 현황
 @app.route("/invest")
 def invest():
-    return render_template("invest.html", data=session['userName'])
+    db = db_root
+    cur = db.cursor()
 
-# 월간 이력
+    sql = "SELECT * from jusik"
+    # sql2 = "SELECT * from jongmok_list where = "
+
+    cur.execute(sql)
+
+    data_list = cur.fetchall()
+
+    return render_template("invest.html", data_list=data_list, data=session['userName'])
+
+# 실현 손익
 @app.route("/monthly")
 def monthly():
-    return render_template("monthly.html", data=session['userName'])
+    db = db_root
+    cur = db.cursor()
+
+    sql = "SELECT * from jusik"
+    # sql2 = "SELECT * from jongmok_list where = "
+
+    cur.execute(sql)
+
+    data_list = cur.fetchall()
+
+    return render_template("monthly.html", data_list=data_list, data=session['userName'])
 
 # 이용 가이드
 @app.route("/guide")
