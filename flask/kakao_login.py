@@ -40,7 +40,7 @@ class code_login:
     def code_auth(self,code):
 
         url = "https://kauth.kakao.com/oauth/token"
-        payload = "grant_type=authorization_code&client_id=7de6eba98a900d9c18e21fedc74b92ae&redirect_uri=http%3A%2F%2F127.0.0.1%3A5000%2Fportfolio&code=" + str(code)
+        payload = "grant_type=authorization_code&client_id=7de6eba98a900d9c18e21fedc74b92ae&redirect_uri=http%3A%2F%2F3.35.84.5%3A5000%2Fportfolio&code=" + str(code)
         headers = {
             'Content-Type': "application/x-www-form-urlencoded",
             'Cache-Control': "no-cache",
