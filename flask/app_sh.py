@@ -169,10 +169,11 @@ def homepage():
     code = code_login()
     key = str(request.args.get('code'))
     code.save_token(key)
-
-    auth, id_db, name = code.code_auth(key)
-    session['userID'] = id_db
-    session['userName'] = name
+    if code_count == 0:
+        auth, id_db, name = code.code_auth(key)
+        session['userID'] = id_db
+        session['userName'] = name
+        code_count = 1
 
     return render_template("index.html", data=session['userName'], chart_high=session['highest'], chart_low=session['lowest'])
 

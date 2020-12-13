@@ -88,18 +88,16 @@ class code_login:
         data_list = cur.fetchall()
 
         for i in data_list:
-            if i==ID:
+            if i[0]==ID:
                 print("중복")
                 return
 
         db = db_root
         cur = db.cursor()
         sql = "INSERT INTO user_info(ID, Nickname) VALUES (%s, %s)"
-        sql1 = "SELECT ID FROM user_info"
 
-        if sql1 == None:
-            cur.execute(sql, (ID, Nickname))
-            db.commit()
+        cur.execute(sql, (ID, Nickname))
+        db.commit()
 
         db = db_root
         cur = db.cursor()
