@@ -1,18 +1,32 @@
 from flask import Flask, request, flash
 from flask import render_template, make_response, session, escape
+from bs4 import BeautifulSoup
+from kakao_login import *
+import functools
 import json
 import pymysql
 import urllib.request
 import pandas as pd
 import plotly.express as px
 import requests
-from bs4 import BeautifulSoup
+import operator
 import openpyxl
-from kakao_login import *
 
 app = Flask(__name__)
 db_root = pymysql.connect(host='ls-360d5e5827a35e0a46fa340307d68f5a00a3b151.cvbhe0hq8rxv.ap-northeast-2.rds.amazonaws.com', port=3306, user='dbmasteruser', passwd='Qa]HHh]dc1NsX>VLfo<=JA^1GcEWOCY$', db='dbmaster', charset='utf8')
 code_count = 0
+
+def db_chart(order):
+
+    db = db_root
+    cur = db.cursor()
+    sql = "SELECT jongmok_name,jongmok_listcol1 FROM jongmok_list ORDER BY jongmok_listcol1 " + order
+
+    cur.execute(sql)
+    data_list = cur.fetchall()
+
+    return data_list
+
 # 홈
 @app.route("/")
 def first():
@@ -132,6 +146,24 @@ def kosdaq():
 # 포트폴리오
 @app.route("/portfolio")
 def homepage():
+    chart_data_high = db_chart("DESC")
+    chart_list_high = list(chart_data_high)
+    high_string = list()
+
+    for i in range(0, 10):
+        high_string.append(chart_list_high[i])
+
+    session['highest'] = high_string
+
+    chart_data_low = db_chart("ASC")
+    chart_list_low = list(chart_data_low)
+    low_string = list()
+
+    for i in range(0, 10):
+        low_string.append(chart_list_low[i])
+
+    session['lowest'] = low_string
+
     global key
     global code_count
     if code_count == 0:
@@ -143,7 +175,7 @@ def homepage():
         session['userID'] = id_db
         session['userName'] = name
         code_count = 1
-    return render_template("index.html", data=session['userName'])
+    return render_template("index.html", data=session['userName'], chart_high=session['highest'], chart_low=session['lowest'])
 
 # 배당금 내역
 @app.route("/dividend", methods=["GET", "POST"])
