@@ -19,7 +19,7 @@ class code_login:
         data = {
             "grant_type": "authorization_code",
             "client_id": app_key,
-            "redirect_uri": "http://3.35.84.5:5000/portfolio",
+            "redirect_uri": "http://0.0.0.0:5000/portfolio",
             "code": code
         }
         response = requests.post(url, data=data)
