@@ -94,7 +94,7 @@
                                 <tr>
                                     <th>판매 날짜</th>
                                     <th>종목명</th>
-                                    <td>평균 구매가</td>
+                                    <th>평균 구매가</th>
                                     <th>평균 판매가</th>
                                     <th>수량</th>
                                     <th>실현손익</th>
@@ -112,6 +112,20 @@
                                 </tr>
                                 {% endfor %}
 
+                                </tbody>
+                            </table>
+                            <table class="table table-bordered" width="100%" cellspacing="0">
+                                <thead>
+                                <tr>
+                                    <th>실현손익</th>
+                                    <th>배당금</th>
+                                    <th>총 실현손익</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <td>{{ price_s }}</td>
+                                    <td>{{ price_b }}</td>
+                                    <td>{{ price_s+price_b }}</td>
                                 </tbody>
                             </table>
                         </div>

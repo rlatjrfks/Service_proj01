@@ -178,7 +178,14 @@ def dividend():
 # 배당금 write
 @app.route("/dividend-write")
 def dividend_write():
-    return render_template("write_dividend.html", data=session['userName'])
+    db = db_root
+    cur = db.cursor()
+
+    sql = "SELECT jongmok_name from jongmok_list"
+    cur.execute(sql)
+
+    data_list = cur.fetchall()
+    return render_template("write_dividend.html",data_list=data_list, data=session['userName'])
 
 @app.route("/myport", methods=["GET", "POST"])
 def myport():
@@ -215,7 +222,16 @@ def myport():
 # 포트폴리오 내역 write
 @app.route("/myport-write")
 def myport_write():
-    return render_template("write_myport.html", data=session['userName'])
+    db = db_root
+    cur = db.cursor()
+
+    sql = "SELECT jongmok_name from jongmok_list"
+    cur.execute(sql)
+
+    data_list = cur.fetchall()
+    return render_template("write_myport.html", data_list=data_list, data=session['userName'])
+
+
 
 # 투자 현황
 @app.route("/invest")
@@ -238,15 +254,22 @@ def monthly():
     userid = session['userID']
     db = db_root
     cur = db.cursor()
+    cur2 = db.cursor()
+    cur3 = db.cursor()
 
     sql = "SELECT * from jusik where id='%s' and sell_date!='0000-00-00'"%(userid)
-    # sql2 = "SELECT * from jongmok_list where = "
+    sql2 = "SELECT sum((sell_price-buy_price)*count) from jusik where id='%s' and sell_date!='0000-00-00'"%(userid)
+    sql3 = "SELECT sum(baedang_price) from baedang where id='%s'"%(userid)
 
     cur.execute(sql)
+    cur2.execute(sql2)
+    cur3.execute(sql3)
 
     data_list = cur.fetchall()
+    price_s = cur2.fetchall()
+    price_b = cur3.fetchall()
 
-    return render_template("monthly.html", data_list=data_list, data=session['userName'])
+    return render_template("monthly.html", data_list=data_list, price_s=price_s[0][0], price_b=price_b[0][0], data=session['userName'])
 
 # 이용 가이드
 @app.route("/guide")

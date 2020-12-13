@@ -90,13 +90,19 @@
                                     <td style="padding-top: 15px">배당일</td>
                                 </tr>
                                 <tr>
-                                    <td><input type="text" id="baedang_date" name="baedang_date" placeholder="*배당일을 입력하세요 ex) 0000-00-00" style="margin-top:10px; width: 900px;"></td>
+                                    <td><input type="date" id="baedang_date" name="baedang_date" placeholder="*배당일을 입력하세요 ex) 0000-00-00" style="margin-top:10px; width: 900px;"></td>
                                 </tr>
                                 <tr>
                                     <td style="padding-top: 15px">종목명</td>
                                 </tr>
                                 <tr>
-                                    <td><input type="text" id="name" name="name" placeholder="*종목명을 입력하세요 ex) 삼성전자" style="margin-top:10px; width: 900px;"></td>
+                                    <td>
+                                        <select name="name" id="name">
+                                            {% for i in data_list %}
+                                            <option value="{{ i[0] }}">{{ i[0] }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td style="padding-top: 15px">배당금액</td>

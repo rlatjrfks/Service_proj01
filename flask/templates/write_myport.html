@@ -90,19 +90,25 @@
                                     <td style="padding-top: 15px">구매날짜</td>
                                 </tr>
                                 <tr>
-                                    <td><input type="text" id="buy_date" name="buy_date" placeholder="*구매날짜를 입력하세요 ex) 0000-00-00" style="margin-top:10px; width: 900px;"></td>
+                                    <td><input type="date" id="buy_date" name="buy_date" placeholder="*구매날짜를 입력하세요 ex) 0000-00-00" style="margin-top:10px; width: 900px;"></td>
                                 </tr>
                                 <tr>
                                     <td style="padding-top: 15px">판매날짜</td>
                                 </tr>
                                 <tr>
-                                    <td><input type="text" id="sell_date" name="sell_date" placeholder="판매날짜를 입력하세요 ex) 0000-00-00" style="margin-top:10px; width: 900px;"></td>
+                                    <td><input type="date" id="sell_date" name="sell_date" placeholder="판매날짜를 입력하세요 ex) 0000-00-00" style="margin-top:10px; width: 900px;"></td>
                                 </tr>
                                 <tr>
                                     <td style="padding-top: 15px">종목명</td>
                                 </tr>
                                 <tr>
-                                    <td><input type="text" id="name" name="name" placeholder="*종목명을 입력하세요 ex) 삼성전자" style="margin-top: 10px;width: 900px;"></td>
+                                    <td>
+                                        <select name="name" id="name">
+                                            {% for i in data_list %}
+                                            <option value="{{ i[0] }}">{{ i[0] }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td style="padding-top: 15px">평균구매가</td>
