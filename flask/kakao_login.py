@@ -27,7 +27,7 @@ class code_login:
         print("token: "+ str(tokens))
 
         # access 토큰과 refresh token저장하기
-        with open("kakao_code.json", "w") as fp:
+        with open("/home/ubuntu/Service_proj01/flask/kakao_code.json", "w") as fp:
             json.dump(tokens, fp)
 
         # 저장, 읽어오기
@@ -49,7 +49,7 @@ class code_login:
         #  print("response status:\n%d" % response.status_code)
         #  print("response headers:\n%s" % response.headers)
         # print("response body:\n%s" % response.text)
-        with open('./kakao_code.json') as json_file:
+        with open('/home/ubuntu/Service_proj01/flask/kakao_code.json') as json_file:
             json_data = json.load(json_file)
             access_token = json_data["access_token"]
         #access_token = json.loads(((response.text).encode('utf-8')))['access_token']
