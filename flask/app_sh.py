@@ -35,7 +35,7 @@ def first():
     df['date'] = pd.to_datetime(df['date'])
 
     # 반응형 그래프 그리기
-    fig = px.line(df, x='date', y='close')
+    fig = px.line(df, x='date', y='close', title='코스피 지수')
 
     fig.update_xaxes(
         rangeslider_visible=True,
