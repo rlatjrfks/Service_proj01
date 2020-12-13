@@ -35,7 +35,7 @@ def first():
     df['date'] = pd.to_datetime(df['date'])
 
     # 반응형 그래프 그리기
-    fig = px.line(df, x='date', y='close', title='코스피 지수')
+    fig = px.line(df, x='date', y='close')
 
     fig.update_xaxes(
         rangeslider_visible=True,
@@ -69,7 +69,7 @@ def first():
     # 컬럼명 'date'의 타입을 date로 바꿔줌
     df1['date'] = pd.to_datetime(df1['date'])
 
-    fig1 = px.line(df1, x='date', y='close', title='코스닥 지수')
+    fig1 = px.line(df1, x='date', y='close')
 
     fig1.update_xaxes(
         rangeslider_visible=True,
