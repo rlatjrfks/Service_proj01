@@ -191,23 +191,47 @@ def dividend_write():
 def myport():
     userid = session['userID']
     if request.method == "POST":
-        buy_date = request.form.get("buy_date")
-        sell_date = request.form.get("sell_date")
-        name = request.form.get("name")
-        buy_price = request.form.get("buy_price")
-        count = request.form.get("count")
-        sell_price = request.form.get("sell_price")
+        form = request.form.get("form1")
+        print(form)
+        if form == "포트폴리오 내역 등록":
+            print(form)
+            buy_date = request.form.get("buy_date")
+            sell_date = request.form.get("sell_date")
+            name = request.form.get("name")
+            buy_price = request.form.get("buy_price")
+            count = request.form.get("count")
+            sell_price = request.form.get("sell_price")
 
-        if buy_date == "" or name == "" or buy_price == "" or count == "":
-            return render_template("write_myport.html")
+            if buy_date == "" or name == "" or buy_price == "" or count == "":
+                return render_template("write_myport.html")
 
-        db = db_root
-        cur = db.cursor()
-        sql = "INSERT INTO jusik(id, buy_date, sell_date, name, buy_price, count, sell_price) VALUES (%s, %s, %s, %s, %s, %s, %s)"
-        cur.execute(sql, (userid, buy_date, sell_date, name, buy_price, count, sell_price))
-        # sql = "INSERT INTO baedang(id, baedang_date, name, baedang_price) VALUES (%s, %s , %s, %s)"
-        # cur.execute(sql, (id, baedang_date, name, baedang_price))
-        db.commit()
+            db = db_root
+            cur = db.cursor()
+            sql = "INSERT INTO jusik(id, buy_date, sell_date, name, buy_price, count, sell_price) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+            cur.execute(sql, (userid, buy_date, sell_date, name, buy_price, count, sell_price))
+            db.commit()
+        elif form == "포트폴리오 내역 수정":
+            print(form)
+            buy_date = request.form.get("buy_date")
+            name = request.form.get("name")
+            sell_date = request.form.get("sell_date")
+            sell_price = request.form.get("sell_price")
+            if buy_date == "" or name == "" or sell_date == "" or sell_price == "":
+                return render_template("modify_myport.html")
+
+            db = db_root
+            cur = db.cursor()
+            cur1 = db.cursor()
+#            sql = "SELECT * from jusik where id='%s' and buy_date='%s' and name='%s'"%(userid, buy_date, name)
+#            cur.execute(sql)
+#            d_list = cur.fetchall()
+#            if d_list == '':
+#                return render_template("modify_myport.html")
+
+            sql1 = "UPDATE jusik SET sell_date='%s', sell_price='%s' where id='%s' and buy_date='%s' and name='%s'"%(sell_date, sell_price, userid, buy_date, name)
+            cur1.execute(sql1)
+            db.commit()
+
 
     db = db_root
     cur = db.cursor()
@@ -231,7 +255,18 @@ def myport_write():
     data_list = cur.fetchall()
     return render_template("write_myport.html", data_list=data_list, data=session['userName'])
 
+# 포트폴리오 내역 modify
+@app.route("/myport-modify")
+def myport_modify():
+    userid = session['userID']
+    db = db_root
+    cur = db.cursor()
 
+    sql = "SELECT name from jusik where id='%s' and sell_date='0000-00-00'"%(userid)
+    cur.execute(sql)
+
+    data_list = cur.fetchall()
+    return render_template("modify_myport.html", data_list=data_list, data=session['userName'])
 
 # 투자 현황
 @app.route("/invest")

@@ -80,24 +80,18 @@
                 <ol class="breadcrumb mb-4">
                     <li class="breadcrumb-item"><a href="/portfolio">My Portfolio</a></li>
                     <li class="breadcrumb-item active"><a href="/myport">포트폴리오 내역</a></li>
-                    <li class="breadcrumb-item active">등록</li>
+                    <li class="breadcrumb-item active">수정</li>
                 </ol>
                 <div class="card mb-4">
                     <div class="card-body">
                         <table align="left" style="padding-left:30px; padding-top: 30px">
-                            <form id="form" action="/myport" method="post"
-                            <td><input type="text" name="form1" readonly style="background-color:transparent;border:0 solid black;text-align:right;" value="포트폴리오 내역 등록"></td>
+                            <form id="form" action="/myport" method="post">
+                                <td><input type="text" name="form1" readonly style="background-color:transparent;border:0 solid black;text-align:right;" value="포트폴리오 내역 수정"></td>
                                 <tr>
                                     <td style="padding-top: 15px">구매날짜</td>
                                 </tr>
                                 <tr>
-                                    <td><input type="date" id="buy_date" name="buy_date" placeholder="*구매날짜를 입력하세요 ex) 0000-00-00" style="margin-top:10px; width: 900px;"></td>
-                                </tr>
-                                <tr>
-                                    <td style="padding-top: 15px">판매날짜</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="date" id="sell_date" name="sell_date" placeholder="판매날짜를 입력하세요 ex) 0000-00-00" style="margin-top:10px; width: 900px;"></td>
+                                    <td><input type="date" id="buy_date" name="buy_date" placeholder="구매날짜를 입력하세요 ex) 0000-00-00" style="margin-top:10px; width: 900px;"></td>
                                 </tr>
                                 <tr>
                                     <td style="padding-top: 15px">종목명</td>
@@ -112,16 +106,10 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td style="padding-top: 15px">평균구매가</td>
+                                    <td style="padding-top: 15px">판매날짜</td>
                                 </tr>
                                 <tr>
-                                    <td><input type="number" id="buy_price" name="buy_price" placeholder="*평균구매가를 입력하세요 ex) 1000" style="margin-top: 10px;width: 900px;"></td>
-                                </tr>
-                                <tr>
-                                    <td style="padding-top: 15px">구매수량</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="number" id="count" name="count" placeholder="*수량을 입력하세요 ex) 1" style="margin-top: 10px;width: 900px;"></td>
+                                    <td><input type="date" id="sell_date" name="sell_date" placeholder="판매날짜를 입력하세요 ex) 0000-00-00" style="margin-top:10px; width: 900px;"></td>
                                 </tr>
                                 <tr>
                                     <td style="padding-top: 15px">평균판매가</td>
@@ -131,7 +119,7 @@
                                 </tr>
                                 <tr>
                                     <td colspan="2"style="padding-top: 20px" align="right">
-                                        <button class="btn btn-outline-info" type="submit">작성하기</button>
+                                        <button class="btn btn-outline-info" type="submit">수정하기</button>
                                         <a class="btn btn-outline-info" href="myport">취소</a>
                                     </td>
                                 </tr>
