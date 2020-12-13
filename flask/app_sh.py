@@ -210,10 +210,11 @@ def dividend():
 # 배당금 write
 @app.route("/dividend-write")
 def dividend_write():
+    userid = session['userID']
     db = db_root
     cur = db.cursor()
 
-    sql = "SELECT jongmok_name from jongmok_list"
+    sql = "SELECT name from jusik where id='%s'"%(userid)
     cur.execute(sql)
 
     data_list = cur.fetchall()
@@ -335,8 +336,10 @@ def monthly():
     data_list = cur.fetchall()
     price_s = cur2.fetchall()
     price_b = cur3.fetchall()
-
-    return render_template("monthly.html", data_list=data_list, price_s=price_s[0][0], price_b=price_b[0][0], data=session['userName'])
+    if price_s and price_b:
+        return render_template("monthly.html", data_list=data_list, price_s=price_s[0][0], price_b=price_b[0][0], data=session['userName'])
+    else:
+        return render_template("monthly.html", data_list=data_list, price_s=0, price_b=0, data=session['userName'])
 
 # 이용 가이드
 @app.route("/guide")
