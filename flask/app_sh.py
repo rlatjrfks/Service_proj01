@@ -127,7 +127,7 @@ def first():
                 sheet.append([name.text, money.text, span[1].text])
 
     # 작업 마친 후 파일 저장
-    wb.save("templates/주식데이터.xlsx")
+    wb.save("templates/jusikdata.xlsx")
     session.clear()
     return render_template("home.html")
 

@@ -12,7 +12,7 @@ def insert_excel_to_db():
         with conn.cursor() as curs:
             sql = 'insert into jongmok_list values(%s, %s, %s)'
 
-            wb = load_workbook("templates/주식데이터.xlsx", data_only=True)
+            wb = load_workbook("templates/jusikdata.xlsx", data_only=True)
             ws = wb['Sheet']
 
             iter_rows = iter(ws.rows)
