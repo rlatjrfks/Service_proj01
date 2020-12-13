@@ -9,8 +9,111 @@
     <title>나만의 주식 포트폴리오</title>
     <link href="/static/css/styles.css" rel="stylesheet" />
     <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
 </head>
+
+<script type="text/javascript">
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawChart);
+      google.charts.setOnLoadCallback(drawChart1);
+
+
+      function drawChart() {
+          var chartdata = '{{ chart_high }}';
+          console.log("chart:"+chartdata);
+          chartdata = chartdata.replaceAll('&','');
+          chartdata = chartdata.replaceAll('#','');
+          chartdata = chartdata.replaceAll(';','');
+          chartdata = chartdata.replaceAll('39','');
+          chartdata = chartdata.replaceAll('(','');
+          chartdata = chartdata.replaceAll(')','');
+          chartdata = chartdata.replaceAll('[','');
+          chartdata = chartdata.replaceAll(']','');
+          console.log("data:"+chartdata);
+
+          var splitdata = chartdata.split(',');
+
+          data = new google.visualization.DataTable();
+          data.addColumn('string', '종목명');
+          data.addColumn('number', '등락률');
+          for(var i=0; i<20; i=i+2){
+              if(splitdata[i].length>4){
+                  splitdata[i] = splitdata[i].slice(0,6);
+              }
+              data.addRow([splitdata[i], parseFloat(splitdata[i+1])]);
+          }
+
+        options = {
+          chart: {
+          },
+          colors: ['red'],
+            hAxis: {
+              textStyle : {
+                  fontSize : 7
+              }
+            },
+            vAxis: {
+              viewWindow: {
+                  min: -30,
+                  max: 40
+              }
+            },
+        };
+
+        chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+      }
+
+      function drawChart1() {
+          var chartdata = '{{ chart_low }}';
+          console.log("chart:"+chartdata);
+          chartdata = chartdata.replaceAll('&','');
+          chartdata = chartdata.replaceAll('#','');
+          chartdata = chartdata.replaceAll(';','');
+          chartdata = chartdata.replaceAll('39','');
+          chartdata = chartdata.replaceAll('(','');
+          chartdata = chartdata.replaceAll(')','');
+          chartdata = chartdata.replaceAll('[','');
+          chartdata = chartdata.replaceAll(']','');
+          console.log("data:"+chartdata);
+
+          var splitdata = chartdata.split(',');
+
+          data = new google.visualization.DataTable();
+          data.addColumn('string', '종목명');
+          data.addColumn('number', '등락률');
+          for(var i=0; i<20; i=i+2){
+              if(splitdata[i].length>4){
+                  splitdata[i] = splitdata[i].slice(0,6);
+              }
+              data.addRow([splitdata[i], parseFloat(splitdata[i+1])]);
+          }
+
+        options = {
+          chart: {
+          },
+          colors: ['blue'],
+            hAxis: {
+              textStyle : {
+                  fontSize : 7
+              }
+            },
+            vAxis: {
+              viewWindow: {
+                  min: -30,
+                  max: 40
+              }
+            },
+        };
+
+        chart = new google.charts.Bar(document.getElementById('columnchart_material1'));
+
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+      }
+</script>
+
 <body class="sb-nav-fixed">
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
     <a class="navbar-brand" href="portfolio">My Stock</a>
@@ -100,7 +203,26 @@
                             <div class="card-body"><iframe src="/kosdaq" width="100%" height="400"></iframe></div>
                         </div>
                     </div>
+                    <div class="col-xl-6">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-chart-area mr-1"></i>
+                                개별종목 상승률 TOP 10
+                            </div>
+                            <div id="columnchart_material" style="width: 600px; height: 500px; margin: 0 auto;"></div>
+                        </div>
+                    </div>
+                     <div class="col-xl-6">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-chart-area mr-1"></i>
+                                개별종목 하락률 TOP 10
+                            </div>
+                            <div id="columnchart_material1" style="width: 600px; height: 500px; margin: 0 auto;"></div>
+                        </div>
+                    </div>
                 </div>
+
                 <div class="card mb-4">
                     <div class="card-header">
                         <i class="fas fa-table mr-1"></i>
