@@ -129,6 +129,8 @@ def first():
     # 작업 마친 후 파일 저장
     wb.save("templates/jusikdata.xlsx")
     session.clear()
+    global code_count
+    code_count = 0
     return render_template("home.html")
 
 # 코스피
