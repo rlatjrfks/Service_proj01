@@ -78,7 +78,7 @@
             <div class="container-fluid">
                 <h1 class="mt-4">실현 손익</h1>
                 <ol class="breadcrumb mb-4">
-                    <li class="breadcrumb-item"><a href="/">My Portfolio</a></li>
+                    <li class="breadcrumb-item"><a href="/portfolio">My Portfolio</a></li>
                     <li class="breadcrumb-item active">실현 손익</li>
                 </ol>
             </div>
@@ -94,8 +94,9 @@
                                 <tr>
                                     <th>판매 날짜</th>
                                     <th>종목명</th>
+                                    <td>평균 구매가</td>
                                     <th>평균 판매가</th>
-                                    <th>판매 수량</th>
+                                    <th>수량</th>
                                     <th>실현손익</th>
                                 </tr>
                                 </thead>
@@ -104,8 +105,10 @@
                                 <tr>
                                     <td>{{ i[2] }}</td>
                                     <td>{{ i[3] }}</td>
+                                    <td>{{ i[4] }}</td>
                                     <td>{{ i[6] }}</td>
-                                    <td>{{ i[7] }}</td>
+                                    <td>{{ i[5] }}</td>
+                                    <td>{{ (i[6]-i[4])*i[5] }}</td>
                                 </tr>
                                 {% endfor %}
 

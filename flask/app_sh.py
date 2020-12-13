@@ -148,19 +148,19 @@ def homepage():
 # 배당금 내역
 @app.route("/dividend", methods=["GET", "POST"])
 def dividend():
+    userid = session['userID']
     if request.method == "POST":
-        # id = request.form.get("id")
         baedang_date = request.form.get("baedang_date")
         name = request.form.get("name")
         baedang_price = request.form.get("baedang_price")
 
-        if id == "" or baedang_date == "" or name == "" or baedang_price == "":
+        if baedang_date == "" or name == "" or baedang_price == "":
             return render_template("write_dividend.html")
 
         db = db_root
         cur = db.cursor()
-        sql = "INSERT INTO baedang(baedang_date, name, baedang_price) VALUES (%s, %s, %s)"
-        cur.execute(sql, (baedang_date, name, baedang_price))
+        sql = "INSERT INTO baedang(id, baedang_date, name, baedang_price) VALUES (%s, %s, %s, %s)"
+        cur.execute(sql, (userid, baedang_date, name, baedang_price))
         # sql = "INSERT INTO baedang(id, baedang_date, name, baedang_price) VALUES (%s, %s , %s, %d)"
         # cur.execute(sql, (id, baedang_date, name, baedang_price))
         db.commit()
@@ -168,7 +168,7 @@ def dividend():
     db = db_root
     cur = db.cursor()
 
-    sql = "SELECT * from baedang"
+    sql = "SELECT * from baedang where id='%s'"%(userid)
     cur.execute(sql)
 
     data_list = cur.fetchall()
@@ -182,24 +182,22 @@ def dividend_write():
 
 @app.route("/myport", methods=["GET", "POST"])
 def myport():
+    userid = session['userID']
     if request.method == "POST":
-
-        # id = request.form.get("id")
         buy_date = request.form.get("buy_date")
         sell_date = request.form.get("sell_date")
         name = request.form.get("name")
         buy_price = request.form.get("buy_price")
-        buy_count = request.form.get("buy_count")
+        count = request.form.get("count")
         sell_price = request.form.get("sell_price")
-        sell_count = request.form.get("sell_count")
 
-        if id == "" or buy_date == "" or name == "" or buy_price == "" or buy_count == "":
+        if buy_date == "" or name == "" or buy_price == "" or count == "":
             return render_template("write_myport.html")
 
         db = db_root
         cur = db.cursor()
-        sql = "INSERT INTO jusik(buy_date, sell_date, name, buy_price, buy_count, sell_price, sell_count) VALUES (%s, %s, %s, %s, %s, %s, %s)"
-        cur.execute(sql, (buy_date, sell_date, name, buy_price, buy_count, sell_price, sell_count))
+        sql = "INSERT INTO jusik(id, buy_date, sell_date, name, buy_price, count, sell_price) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+        cur.execute(sql, (userid, buy_date, sell_date, name, buy_price, count, sell_price))
         # sql = "INSERT INTO baedang(id, baedang_date, name, baedang_price) VALUES (%s, %s , %s, %s)"
         # cur.execute(sql, (id, baedang_date, name, baedang_price))
         db.commit()
@@ -207,7 +205,7 @@ def myport():
     db = db_root
     cur = db.cursor()
 
-    sql = "SELECT * from jusik"
+    sql = "SELECT * from jusik where id='%s'"%(userid)
     cur.execute(sql)
 
     data_list = cur.fetchall()
@@ -222,25 +220,26 @@ def myport_write():
 # 투자 현황
 @app.route("/invest")
 def invest():
+    userid = session['userID']
     db = db_root
     cur = db.cursor()
 
-    sql = "SELECT * from jusik"
-    # sql2 = "SELECT * from jongmok_list where = "
-
+    sql = "SELECT jusik.id, jusik.buy_date, jusik.sell_date, jusik.name, jusik.buy_price, jusik.count, jusik.sell_price, jongmok_list.jongmok_name, jongmok_list.jongmok_listcol, jongmok_list.jongmok_listcol1 from jusik, jongmok_list where jusik.id='%s' and jusik.name=jongmok_list.jongmok_name and jusik.sell_date='0000-00-00'"%(userid)
     cur.execute(sql)
 
     data_list = cur.fetchall()
+    print(data_list)
 
     return render_template("invest.html", data_list=data_list, data=session['userName'])
 
 # 실현 손익
 @app.route("/monthly")
 def monthly():
+    userid = session['userID']
     db = db_root
     cur = db.cursor()
 
-    sql = "SELECT * from jusik"
+    sql = "SELECT * from jusik where id='%s' and sell_date!='0000-00-00'"%(userid)
     # sql2 = "SELECT * from jongmok_list where = "
 
     cur.execute(sql)

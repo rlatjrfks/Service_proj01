@@ -78,7 +78,7 @@
             <div class="container-fluid">
                 <h1 class="mt-4">포트폴리오 내역</h1>
                 <ol class="breadcrumb mb-4">
-                    <li class="breadcrumb-item"><a href="/">My Portfolio</a></li>
+                    <li class="breadcrumb-item"><a href="/portfolio">My Portfolio</a></li>
                     <li class="breadcrumb-item active">포트폴리오 내역</li>
                 </ol>
                 <div style="padding-bottom: 20px;">
@@ -94,7 +94,9 @@
                                 <th>구매 날짜</th>
                                 <th>종목명</th>
                                 <th>평균 구매가</th>
-                                <th>구매 수량</th>
+                                <th>수량</th>
+                                <th>판매 날짜</th>
+                                <th>평균 판매가</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -104,6 +106,13 @@
                                 <td>{{ i[3] }}</td>
                                 <td>{{ i[4] }}</td>
                                 <td>{{ i[5] }}</td>
+                                {% if i[2]!='0000-00-00' %}
+                                    <td>{{ i[2] }}</td>
+                                    <td>{{ i[6] }}</td>
+                                {% else %}
+                                    <td></td>
+                                    <td></td>
+                                {% endif %}
                             </tr>
                             {% endfor %}
 
