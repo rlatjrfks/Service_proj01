@@ -49,7 +49,7 @@ class code_login:
         #  print("response status:\n%d" % response.status_code)
         #  print("response headers:\n%s" % response.headers)
         # print("response body:\n%s" % response.text)
-        with open('./kakao_code.json.') as json_file:
+        with open('./kakao_code.json') as json_file:
             json_data = json.load(json_file)
             access_token = json_data["access_token"]
         #access_token = json.loads(((response.text).encode('utf-8')))['access_token']
