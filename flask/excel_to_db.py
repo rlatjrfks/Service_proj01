@@ -12,6 +12,7 @@ def insert_excel_to_db():
         sql1 = 'delete from jongmok_list'
         cur1 = conn.cursor()
         cur1.execute(sql1)
+        conn.commit()
         with conn.cursor() as curs:
 
             sql = 'insert into jongmok_list values(%s, %s, %s)'
