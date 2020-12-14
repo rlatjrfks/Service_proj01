@@ -12,7 +12,7 @@ def insert_excel_to_db():
     cur1 = conn1.cursor()
     cur1.execute(sql1)
     conn1.commit()
-    
+
 
     conn = pymysql.connect(
         host='ls-360d5e5827a35e0a46fa340307d68f5a00a3b151.cvbhe0hq8rxv.ap-northeast-2.rds.amazonaws.com', port=3306,

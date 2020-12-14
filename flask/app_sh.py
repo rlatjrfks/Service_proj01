@@ -2,6 +2,7 @@ from flask import Flask, request, flash
 from flask import render_template, make_response, session, escape
 from bs4 import BeautifulSoup
 from kakao_login import *
+from excel_to_db import *
 import functools
 import json
 import pymysql
@@ -30,6 +31,8 @@ def db_chart(order):
 # 홈
 @app.route("/")
 def first():
+    # 엑셀 DB 저장
+    insert_excel_to_db()
     # 코스피
     df = pd.DataFrame()
     for page in range(1, 21):
