@@ -31,8 +31,6 @@ def db_chart(order):
 # 홈
 @app.route("/")
 def first():
-    # 엑셀 DB 저장
-    insert_excel_to_db()
     # 코스피
     df = pd.DataFrame()
     for page in range(1, 21):
@@ -134,6 +132,9 @@ def first():
     session.clear()
     global code_count
     code_count = 0
+
+    # 엑셀 DB 저장
+    insert_excel_to_db()
     return render_template("home.html")
 
 # 코스피
